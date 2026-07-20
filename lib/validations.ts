@@ -29,40 +29,33 @@ export const createActivitySchema = z.object({
     .string()
     .min(1, "Judul kegiatan wajib diisi")
     .max(200, "Judul terlalu panjang")
-    .optional()
-    .transform((val) => val ?? "Tanpa Judul"),
+    .default("Tanpa Judul"),
   activityDate: z
     .string()
     .min(1, "Tanggal kegiatan wajib diisi")
-    .optional()
-    .transform((val) => val ?? new Date().toISOString()),
+    .default(() => new Date().toISOString()),
   location: z
     .string()
     .min(1, "Lokasi kegiatan wajib diisi")
     .max(300, "Lokasi terlalu panjang")
-    .optional()
-    .transform((val) => val ?? "-"),
+    .default("-"),
   transitLocation: z
     .string()
     .max(300, "Lokasi transit terlalu panjang")
-    .optional()
-    .transform((val) => val ?? ""),
+    .default(""),
   dresscode: z
     .string()
     .min(1, "Dresscode wajib diisi")
     .max(100, "Dresscode terlalu panjang")
-    .optional()
-    .transform((val) => val ?? "-"),
+    .default("-"),
   invitationTime: z
     .string()
     .min(1, "Jam undangan wajib diisi")
-    .optional()
-    .transform((val) => val ?? "-"),
+    .default("-"),
   description: z
     .string()
     .max(1000, "Keterangan terlalu panjang")
-    .optional()
-    .transform((val) => val ?? ""),
+    .default(""),
   customFields: z.string().optional(),
 });
 
