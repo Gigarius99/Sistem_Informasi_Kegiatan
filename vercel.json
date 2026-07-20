@@ -4,12 +4,7 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["sin1"],
-  "env": {
-    "DATABASE_URL": "@database-url",
-    "DIRECT_URL": "@direct-url",
-    "NEXTAUTH_SECRET": "@nextauth-secret",
-    "NEXTAUTH_URL": "@nextauth-url"
-  },
+
   "functions": {
     "app/api/export/excel/route.ts": {
       "maxDuration": 30,
