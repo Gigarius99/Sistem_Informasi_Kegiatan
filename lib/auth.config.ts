@@ -10,7 +10,7 @@ export const authConfig = {
     strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 jam
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   trustHost: true,
   callbacks: {
     async jwt({ token, user }) {
