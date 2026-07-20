@@ -84,8 +84,8 @@ export async function PUT(
     // Audit log
     await prisma.activityLog.create({
       data: {
-        userId: session.user.id!,
-        activityId: id,
+        user: { connect: { id: session.user.id! } },
+        activity: { connect: { id } },
         action: "UPDATE_ACTIVITY",
       },
     });
@@ -126,8 +126,8 @@ export async function DELETE(
     // Log before deleting (cascade will remove it)
     await prisma.activityLog.create({
       data: {
-        userId: session.user.id!,
-        activityId: id,
+        user: { connect: { id: session.user.id! } },
+        activity: { connect: { id } },
         action: "DELETE_ACTIVITY",
       },
     });

@@ -120,15 +120,15 @@ export async function POST(req: NextRequest) {
         transitLocation: transitLocation || null,
         description: description || null,
         customFields: customFields || null,
-        createdBy: session.user.id!,
+        creator: { connect: { id: session.user.id! } },
       },
     });
 
     // Audit log
     await prisma.activityLog.create({
       data: {
-        userId: session.user.id!,
-        activityId: activity.id,
+        user: { connect: { id: session.user.id! } },
+        activity: { connect: { id: activity.id } },
         action: "CREATE_ACTIVITY",
       },
     });
