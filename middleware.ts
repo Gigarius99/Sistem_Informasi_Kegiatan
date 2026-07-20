@@ -4,9 +4,12 @@
  * Protects routes berdasarkan role pengguna
  */
 
-import { auth } from "@/lib/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/lib/auth.config";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+
+const { auth } = NextAuth(authConfig);
 
 // Rute yang hanya bisa diakses Admin
 const ADMIN_ONLY_ROUTES = [
@@ -16,6 +19,7 @@ const ADMIN_ONLY_ROUTES = [
   "/export",
   "/api/activities",
   "/api/export",
+  "/api/fields",
 ];
 
 // Rute publik (tidak perlu login)
@@ -47,7 +51,7 @@ export default auth((req: NextRequest & { auth?: { user?: { role?: string } } })
     pathname.startsWith(route)
   );
 
-  if (isAdminRoute && userRole !== "ADMIN") {
+  if (isAdminRoute && userRole !== "ADMIN_APLIKASI" && userRole !== "ADMIN_KEGIATAN") {
     // Redirect ke dashboard jika bukan Admin
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }

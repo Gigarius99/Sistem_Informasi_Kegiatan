@@ -6,8 +6,10 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 import type { Role } from "@/types";
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       name: "Credentials",
@@ -55,41 +57,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.username = (user as { username?: string }).username;
-        token.role = (user as { role?: Role }).role;
-        token.parentId = (user as { parentId?: string | null }).parentId;
-      }
-
-      // Auto-migrate old roles in existing tokens
-      if (token.role === "ADMIN") token.role = "ADMIN_APLIKASI";
-      if (token.role === "ATASAN") token.role = "PIMPINAN";
-
-      return token;
-    },
-    async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.id as string;
-        (session.user as { username?: string }).username = token.username as string;
-        (session.user as { role?: Role }).role = token.role as Role;
-        (session.user as { parentId?: string | null }).parentId = token.parentId as string | null;
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
-  session: {
-    strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 jam
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-  trustHost: true,
 });
 
 // Type augmentation for next-auth v5
