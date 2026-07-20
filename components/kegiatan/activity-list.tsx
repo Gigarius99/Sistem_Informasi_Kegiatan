@@ -42,7 +42,7 @@ export function ActivityList({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const isAdmin = userRole === "ADMIN";
+  const isAdmin = userRole === "ADMIN_KEGIATAN" || userRole === "ADMIN_APLIKASI";
 
   useEffect(() => {
     fetchFields();

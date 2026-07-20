@@ -26,7 +26,7 @@ export function ActivityCard({ activity, userRole }: ActivityCardProps) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const isAdmin = userRole === "ADMIN";
+  const isAdmin = userRole === "ADMIN_KEGIATAN" || userRole === "ADMIN_APLIKASI";
 
   const handleDelete = async () => {
     setIsDeleting(true);

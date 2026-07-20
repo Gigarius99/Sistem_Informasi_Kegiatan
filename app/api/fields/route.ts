@@ -18,7 +18,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const session = await auth();
-    if (session?.user?.role !== "ADMIN") {
+    if (session?.user?.role !== "ADMIN_APLIKASI" && session?.user?.role !== "ADMIN_KEGIATAN") {
       return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 403 });
     }
 
