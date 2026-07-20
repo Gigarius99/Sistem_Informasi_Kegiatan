@@ -14,7 +14,7 @@ function createPrismaClient(): PrismaClient {
   // Gunakan env var jika ada, atau URL dummy agar Next.js build (static rendering) tidak crash
   const connectionString = process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/dummy";
   const pool = new Pool({ connectionString });
-  const adapter = new PrismaNeon(pool);
+  const adapter = new PrismaNeon(pool as any);
 
   return new PrismaClient({
     adapter,
