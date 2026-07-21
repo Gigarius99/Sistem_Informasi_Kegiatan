@@ -38,7 +38,7 @@ export default async function KegiatanPage() {
   });
 
   return (
-    <div className="fade-in">
+    <div className="animate-[fadeIn_0.3s_ease-out]">
       <AutoRefresh intervalMs={5000} />
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
@@ -53,7 +53,7 @@ export default async function KegiatanPage() {
           </p>
         </div>
         {userRole === "ADMIN_KEGIATAN" && (
-          <Link href="/kegiatan/tambah" className="btn-primary" id="btn-tambah">
+          <Link href="/kegiatan/tambah" className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed" id="btn-tambah">
             <PlusCircle size={22} />
             Tambah Kegiatan
           </Link>

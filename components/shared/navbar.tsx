@@ -17,7 +17,6 @@ export function Navbar({ pageTitle, userRole, userName }: NavbarProps) {
 
   return (
     <>
-      {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -25,9 +24,8 @@ export function Navbar({ pageTitle, userRole, userName }: NavbarProps) {
         />
       )}
 
-      {/* Mobile Sidebar */}
       {sidebarOpen && (
-        <div className="fixed left-0 top-0 bottom-0 z-50 lg:hidden w-72">
+        <div className="fixed left-0 top-0 bottom-0 z-50 lg:hidden">
           <Sidebar
             userRole={userRole}
             userName={userName}
@@ -36,30 +34,20 @@ export function Navbar({ pageTitle, userRole, userName }: NavbarProps) {
         </div>
       )}
 
-      {/* Top Navbar */}
-      <header className="navbar">
-        <div className="flex items-center gap-4">
-          <button
-            className="lg:hidden p-2 rounded-xl"
-            style={{
-              backgroundColor: "var(--color-surface)",
-              border: "1px solid var(--color-border)",
-              color: "var(--color-text)",
-            }}
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Buka menu navigasi"
-          >
-            <Menu size={22} />
-          </button>
-          <h1
-            className="text-xl font-bold truncate"
-            style={{ color: "var(--color-text)" }}
-          >
-            {pageTitle}
-          </h1>
-        </div>
-
-        <div className="flex items-center gap-3">
+      <header className="sticky top-0 z-30 bg-[var(--color-card)] border-b border-[var(--color-border)]">
+        <div className="flex items-center justify-between px-4 lg:px-6 h-14">
+          <div className="flex items-center gap-3">
+            <button
+              className="lg:hidden p-2 rounded-lg text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)]"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Buka menu navigasi"
+            >
+              <Menu size={20} />
+            </button>
+            <h1 className="text-base font-semibold text-[var(--color-text)] truncate">
+              {pageTitle}
+            </h1>
+          </div>
           <ThemeToggle />
         </div>
       </header>

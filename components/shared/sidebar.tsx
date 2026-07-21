@@ -33,37 +33,37 @@ const navItems: NavItem[] = [
   {
     href: "/dashboard",
     label: "Dashboard",
-    icon: <LayoutDashboard size={22} />,
+    icon: <LayoutDashboard size={20} />,
     roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN", "PIMPINAN"],
   },
   {
     href: "/kegiatan",
     label: "Daftar Kegiatan",
-    icon: <CalendarDays size={22} />,
+    icon: <CalendarDays size={20} />,
     roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN", "PIMPINAN"],
   },
   {
     href: "/kegiatan/tambah",
     label: "Tambah Kegiatan",
-    icon: <PlusCircle size={22} />,
+    icon: <PlusCircle size={20} />,
     roles: ["ADMIN_KEGIATAN"],
   },
   {
     href: "/riwayat",
     label: "Riwayat Aktivitas",
-    icon: <ClipboardList size={22} />,
+    icon: <ClipboardList size={20} />,
     roles: ["ADMIN_KEGIATAN"],
   },
   {
     href: "/pengguna",
     label: "Manajemen Pengguna",
-    icon: <Users size={22} />,
+    icon: <Users size={20} />,
     roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN"],
   },
   {
     href: "/export",
     label: "Export Excel",
-    icon: <FileSpreadsheet size={22} />,
+    icon: <FileSpreadsheet size={20} />,
     roles: ["ADMIN_KEGIATAN"],
   },
 ];
@@ -79,105 +79,84 @@ export function Sidebar({ userRole, userName, onClose }: SidebarProps) {
     await signOut({ callbackUrl: "/login" });
   };
 
+  const isActive = (href: string) => {
+    if (href === "/dashboard") return pathname === "/dashboard";
+    if (href === "/kegiatan")
+      return pathname === "/kegiatan" || (pathname.startsWith("/kegiatan/") && pathname !== "/kegiatan/tambah");
+    return pathname === href || pathname.startsWith(href + "/");
+  };
+
   return (
-    <aside
-      className="sidebar flex flex-col"
-      style={{ backgroundColor: "var(--color-surface)" }}
-    >
-      {/* Close Button (Mobile) */}
+    <aside className="w-64 bg-surface border-r border-[var(--color-border)] min-h-screen flex flex-col flex-shrink-0">
       {onClose && (
         <div className="flex justify-end p-4 lg:hidden">
           <button
             onClick={onClose}
-            className="p-2 rounded-lg"
-            style={{ color: "var(--color-text-muted)" }}
+            className="p-2 rounded-lg text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)]"
           >
-            <X size={24} />
+            <X size={20} />
           </button>
         </div>
       )}
 
-      {/* User Info */}
-      <div className="p-5" style={{ borderBottom: "1px solid var(--color-border)" }}>
-        <div
-          className="rounded-xl p-3 flex items-center gap-3"
-          style={{ backgroundColor: "var(--color-surface-2)" }}
-        >
-          <div
-            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0"
-            style={{ backgroundColor: "var(--color-primary)" }}
-          >
+      <div className="p-4 border-b border-[var(--color-border)]">
+        <div className="flex items-center gap-3 px-2">
+          <div className="w-9 h-9 rounded-lg bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
             {userName.charAt(0).toUpperCase()}
           </div>
-          <div className="min-w-0">
-            <p
-              className="font-semibold text-sm truncate"
-              style={{ color: "var(--color-text)" }}
-            >
+          <div className="min-w-0 flex-1">
+            <p className="font-medium text-sm text-[var(--color-text)] truncate">
               {userName}
             </p>
             <span
-              className="text-xs font-medium px-2 py-0.5 rounded-full"
-              style={{
-                backgroundColor:
-                  userRole === "PIMPINAN"
-                    ? "rgba(0,100,210,0.12)"
-                    : "rgba(210,0,26,0.12)",
-                color:
-                  userRole === "PIMPINAN" ? "#1D4ED8" : "var(--color-primary)",
-              }}
+              className={cn(
+                "text-xs font-medium px-2 py-0.5 rounded-md inline-block mt-0.5",
+                userRole === "PIMPINAN"
+                  ? "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                  : "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+              )}
             >
-              {userRole === "ADMIN_APLIKASI" ? "Admin Aplikasi" : userRole === "ADMIN_KEGIATAN" ? "Admin Kegiatan" : "Pimpinan"}
+              {userRole === "ADMIN_APLIKASI"
+                ? "Admin Aplikasi"
+                : userRole === "ADMIN_KEGIATAN"
+                ? "Admin Kegiatan"
+                : "Pimpinan"}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-        <p
-          className="text-xs font-semibold uppercase tracking-wider mb-3 px-3"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          Menu Utama
+      <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
+        <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] px-3 pb-2 pt-1">
+          Menu
         </p>
         {filteredNavItems.map((item) => {
-          let isActive = false;
-          if (item.href === "/dashboard") {
-            isActive = pathname === "/dashboard";
-          } else if (item.href === "/kegiatan") {
-            isActive = pathname === "/kegiatan" || (pathname.startsWith("/kegiatan/") && pathname !== "/kegiatan/tambah");
-          } else {
-            isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-          }
+          const active = isActive(item.href);
           return (
             <Link
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className={cn("nav-item", isActive && "active")}
-            >
-              <span className="flex-shrink-0">{item.icon}</span>
-              <span>{item.label}</span>
-              {isActive && (
-                <span
-                  className="ml-auto w-1.5 h-6 rounded-full"
-                  style={{ backgroundColor: "var(--color-primary)" }}
-                />
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                active
+                  ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]"
               )}
+            >
+              {item.icon}
+              <span>{item.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* Logout */}
-      <div className="p-4" style={{ borderTop: "1px solid var(--color-border)" }}>
+      <div className="p-3 border-t border-[var(--color-border)]">
         <button
           onClick={handleSignOut}
-          className="nav-item w-full text-left"
-          style={{ color: "#DC2626" }}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 w-full transition-colors"
         >
-          <LogOut size={22} />
+          <LogOut size={20} />
           <span>Keluar</span>
         </button>
       </div>

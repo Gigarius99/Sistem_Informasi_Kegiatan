@@ -35,7 +35,7 @@ export default async function EditKegiatanPage({ params }: EditKegiatanPageProps
   };
 
   return (
-    <div className="fade-in">
+    <div className="animate-[fadeIn_0.3s_ease-out]">
       <ActivityForm mode="edit" initialData={serialized} />
     </div>
   );

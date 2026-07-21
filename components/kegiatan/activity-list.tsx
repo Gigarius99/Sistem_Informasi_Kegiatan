@@ -153,14 +153,14 @@ export function ActivityList({
   if (isLoadingFields) {
     return (
       <div className="flex justify-center py-20">
-        <Loader2 size={40} className="spinner text-primary" />
+        <Loader2 size={40} className="animate-spin text-primary" />
       </div>
     );
   }
 
   if (activities.length === 0) {
     return (
-      <div className="empty-state">
+      <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--color-text-muted)]">
         <CalendarRange size={80} />
         <p
           className="font-bold mb-2"
@@ -174,7 +174,7 @@ export function ActivityList({
             : "Belum ada kegiatan yang dijadwalkan."}
         </p>
         {isAdmin && (
-          <Link href="/kegiatan/tambah" className="btn-primary">
+          <Link href="/kegiatan/tambah" className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Tambah Kegiatan Pertama
           </Link>
         )}
@@ -201,7 +201,7 @@ export function ActivityList({
                   placeholder="Cari judul, lokasi, atau dresscode..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="form-input pl-12 w-full"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] pl-12 w-full"
                   style={{ fontSize: "16px" }}
                 />
               </div>
@@ -213,7 +213,7 @@ export function ActivityList({
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="form-input"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
                   style={{ fontSize: "15px", minWidth: "150px" }}
                 />
               </div>
@@ -223,13 +223,13 @@ export function ActivityList({
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="form-input"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
                   style={{ fontSize: "15px", minWidth: "150px" }}
                 />
               </div>
               {hasFilters && (
                 <div className="flex items-end">
-                  <button onClick={clearFilters} className="btn-secondary py-3">
+                  <button onClick={clearFilters} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors py-3">
                     <X size={18} /> Hapus
                   </button>
                 </div>
@@ -241,11 +241,11 @@ export function ActivityList({
 
       {/* Empty Filter Result */}
       {filtered.length === 0 && hasFilters ? (
-        <div className="empty-state">
+        <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--color-text-muted)]">
           <Search size={60} />
           <p className="font-bold mb-2" style={{ fontSize: "20px", color: "var(--color-text)" }}>Tidak Ada Hasil</p>
           <p style={{ fontSize: "16px", color: "var(--color-text-muted)" }}>Tidak ada kegiatan yang sesuai.</p>
-          <button onClick={clearFilters} className="btn-secondary mt-4">Hapus Filter</button>
+          <button onClick={clearFilters} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors mt-4">Hapus Filter</button>
         </div>
       ) : (
         <div 

@@ -115,7 +115,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-xl">Daftar {targetRoleName}</h2>
-        <button onClick={handleOpenAdd} className="btn-primary">
+        <button onClick={handleOpenAdd} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           <PlusCircle size={20} /> Tambah
         </button>
       </div>
@@ -135,7 +135,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
               {isLoading ? (
                 <tr>
                   <td colSpan={4} className="px-6 py-8 text-center">
-                    <Loader2 size={24} className="spinner mx-auto" style={{ color: "var(--color-primary)" }} />
+                    <Loader2 size={24} className="animate-spin mx-auto" style={{ color: "var(--color-primary)" }} />
                   </td>
                 </tr>
               ) : users.length === 0 ? (
@@ -175,7 +175,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
           <div className="w-full max-w-md rounded-2xl p-6 shadow-xl" style={{ backgroundColor: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
             <h2 className="text-xl font-bold mb-6">
               {isEditMode ? "Edit Pengguna" : `Tambah ${targetRoleName}`}
@@ -187,7 +187,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
                   type="text" 
                   value={formData.name} 
                   onChange={(e) => setFormData(p => ({...p, name: e.target.value}))}
-                  className="form-input w-full"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] w-full"
                   required
                 />
               </div>
@@ -198,7 +198,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
                   type="text" 
                   value={formData.username} 
                   onChange={(e) => setFormData(p => ({...p, username: e.target.value}))}
-                  className="form-input w-full bg-gray-50"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] w-full bg-gray-50"
                   required
                   disabled={isEditMode}
                 />
@@ -213,7 +213,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
                   type="password" 
                   value={formData.password} 
                   onChange={(e) => setFormData(p => ({...p, password: e.target.value}))}
-                  className="form-input w-full"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] w-full"
                   required={!isEditMode}
                   minLength={4}
                 />
@@ -231,9 +231,9 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="btn-primary"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? <Loader2 size={20} className="spinner" /> : "Simpan"}
+                  {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : "Simpan"}
                 </button>
               </div>
             </form>

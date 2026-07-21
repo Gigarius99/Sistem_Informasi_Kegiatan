@@ -14,7 +14,7 @@ export default async function ExportPage() {
   if (userRole !== "ADMIN_KEGIATAN") redirect("/dashboard");
 
   return (
-    <div className="fade-in">
+    <div className="animate-[fadeIn_0.3s_ease-out]">
       <div className="mb-8">
         <h1
           className="font-black mb-1"

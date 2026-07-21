@@ -29,7 +29,7 @@ export function DeleteConfirmDialog({
 
       {/* Dialog */}
       <div
-        className="relative w-full max-w-md rounded-2xl p-8 shadow-2xl fade-in"
+        className="relative w-full max-w-md rounded-2xl p-8 shadow-2xl animate-[fadeIn_0.3s_ease-out]"
         style={{
           backgroundColor: "var(--color-card)",
           border: "1px solid var(--color-card-border)",
@@ -74,7 +74,7 @@ export function DeleteConfirmDialog({
         {/* Actions */}
         <div className="flex gap-3">
           <button
-            className="btn-secondary flex-1 justify-center"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors flex-1 justify-center"
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
           >
@@ -88,7 +88,7 @@ export function DeleteConfirmDialog({
           >
             {isLoading ? (
               <>
-                <Loader2 size={18} className="spinner" />
+                <Loader2 size={18} className="animate-spin" />
                 Menghapus...
               </>
             ) : (

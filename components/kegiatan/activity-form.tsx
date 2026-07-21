@@ -270,7 +270,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
   if (!mounted || isLoading) {
     return (
       <div className="flex justify-center py-20">
-        <Loader2 size={40} className="spinner text-primary" />
+        <Loader2 size={40} className="animate-spin text-primary" />
       </div>
     );
   }
@@ -302,7 +302,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
               Isi informasi kegiatan. Tarik (drag) icon di sebelah kiri untuk mengubah urutan form.
             </p>
           </div>
-          <button onClick={openAddModal} className="btn-secondary py-2 flex-shrink-0 text-sm">
+          <button onClick={openAddModal} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors py-2 flex-shrink-0 text-sm">
             <Plus size={18} /> Tambah Variabel
           </button>
         </div>
@@ -391,7 +391,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                                   value={formData[field.name] || ""}
                                   onChange={handleChange}
                                   rows={3}
-                                  className="form-input resize-none text-[15px] p-3"
+                                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] resize-none text-[15px] p-3"
                                   style={{
                                     borderColor: errors[field.name] ? "#DC2626" : "var(--color-input-border)",
                                   }}
@@ -404,7 +404,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                                   type={field.inputType}
                                   value={formData[field.name] || ""}
                                   onChange={handleChange}
-                                  className="form-input text-[15px] py-2.5"
+                                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] text-[15px] py-2.5"
                                   style={{
                                     paddingLeft: field.inputType === "date" || field.inputType === "time" ? "36px" : "12px",
                                     borderColor: errors[field.name] ? "#DC2626" : "var(--color-input-border)",
@@ -430,10 +430,10 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
           </DragDropContext>
 
           <div className="flex gap-4 mt-8">
-            <button type="submit" className="btn-primary flex-1 justify-center py-3.5 text-base" disabled={isSaving}>
+            <button type="submit" className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-1 justify-center py-3.5 text-base" disabled={isSaving}>
               {isSaving ? (
                 <>
-                  <Loader2 size={20} className="spinner" /> Menyimpan...
+                  <Loader2 size={20} className="animate-spin" /> Menyimpan...
                 </>
               ) : (
                 <>
@@ -448,7 +448,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
       {/* MODAL TAMBAH/EDIT VARIABEL */}
       {showModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-[var(--color-card)] rounded-2xl w-full max-w-md shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-[var(--color-card)] rounded-2xl w-full max-w-md shadow-2xl animate-in animate-[fadeIn_0.3s_ease-out] zoom-in-95 duration-200">
             <div className="flex items-center justify-between p-5 border-b border-[var(--color-border)]">
               <h2 className="text-lg font-bold">
                 {modalMode === "ADD" ? "Tambah Variabel Baru" : "Edit Variabel"}
@@ -467,7 +467,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                   value={customLabel}
                   onChange={(e) => setCustomLabel(e.target.value)}
                   placeholder="Contoh: Susunan Acara, Penanggung Jawab..."
-                  className="form-input py-2 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] py-2 text-sm"
                   autoFocus
                 />
               </div>
@@ -478,7 +478,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                 <select
                   value={customInputType}
                   onChange={(e) => setCustomInputType(e.target.value)}
-                  className="form-input py-2 text-sm bg-[var(--color-input-bg)] appearance-none"
+                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] py-2 text-sm bg-[var(--color-input-bg)] appearance-none"
                 >
                   <option value="text">Teks Singkat (Text)</option>
                   <option value="textarea">Teks Panjang (Keterangan / Paragraf)</option>
@@ -488,10 +488,10 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
               </div>
             </div>
             <div className="flex justify-end gap-3 p-5 border-t border-[var(--color-border)] bg-[var(--color-surface)] rounded-b-2xl">
-              <button onClick={() => setShowModal(false)} className="btn-secondary py-2 text-sm">
+              <button onClick={() => setShowModal(false)} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors py-2 text-sm">
                 Batal
               </button>
-              <button onClick={handleSaveField} className="btn-primary py-2 text-sm">
+              <button onClick={handleSaveField} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-2 text-sm">
                 Simpan Variabel
               </button>
             </div>

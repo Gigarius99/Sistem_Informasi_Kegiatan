@@ -14,7 +14,7 @@ export default async function TambahKegiatanPage() {
   if (userRole !== "ADMIN_KEGIATAN") redirect("/dashboard");
 
   return (
-    <div className="fade-in">
+    <div className="animate-[fadeIn_0.3s_ease-out]">
       <ActivityForm mode="create" />
     </div>
   );

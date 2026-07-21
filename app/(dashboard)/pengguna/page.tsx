@@ -19,7 +19,7 @@ export default async function PenggunaPage() {
   const targetRoleName = userRole === "ADMIN_APLIKASI" ? "Admin Kegiatan" : "Pimpinan";
 
   return (
-    <div className="fade-in">
+    <div className="animate-[fadeIn_0.3s_ease-out]">
       <div className="mb-8">
         <h1
           className="font-black mb-1"

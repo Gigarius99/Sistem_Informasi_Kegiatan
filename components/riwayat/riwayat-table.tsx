@@ -24,7 +24,7 @@ const ACTION_COLORS: Record<string, { bg: string; text: string }> = {
 export function RiwayatTable({ logs }: RiwayatTableProps) {
   if (logs.length === 0) {
     return (
-      <div className="empty-state">
+      <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--color-text-muted)]">
         <ClipboardList size={80} />
         <p className="font-bold mt-4" style={{ fontSize: "20px", color: "var(--color-text)" }}>
           Belum Ada Riwayat

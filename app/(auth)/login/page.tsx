@@ -7,48 +7,27 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ backgroundColor: "var(--color-bg)" }}
-    >
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[var(--color-bg)]">
       <div className="w-full max-w-sm">
-        {/* Logo & Title */}
-        <div className="text-center mb-4">
-          <div className="flex justify-center mb-2">
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
             <img
               src="/Seal_of_Wonogiri_Regency.png"
               alt="Logo Kabupaten Wonogiri"
-              className="w-16 h-auto drop-shadow-md"
+              className="w-16 h-auto"
             />
           </div>
-          <h1
-            className="text-xl lg:text-2xl font-black mb-0.5 leading-tight"
-            style={{ color: "var(--color-text)" }}
-          >
-            Sistem Informasi
+          <h1 className="text-lg font-semibold text-[var(--color-text)]">
+            Sistem Informasi Agenda Kegiatan
           </h1>
-          <h1
-            className="text-xl lg:text-2xl font-black leading-tight"
-            style={{ color: "var(--color-text)" }}
-          >
-            Agenda Kegiatan
-          </h1>
+          <p className="text-sm text-[var(--color-text-muted)] mt-1">
+            Kabupaten Wonogiri
+          </p>
         </div>
 
-        {/* Login Card */}
-        <div
-          className="rounded-2xl p-5 sm:p-6 shadow-xl"
-          style={{
-            backgroundColor: "var(--color-card)",
-            border: "1px solid var(--color-card-border)",
-            boxShadow: "0 8px 32px var(--color-shadow)",
-          }}
-        >
-          <h2
-            className="text-xl font-bold mb-4 text-center"
-            style={{ color: "var(--color-text)" }}
-          >
-            Silakan Masuk
+        <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-sm">
+          <h2 className="text-base font-semibold text-[var(--color-text)] mb-5 text-center">
+            Masuk ke Akun Anda
           </h2>
           <LoginForm />
         </div>

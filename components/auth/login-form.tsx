@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Loader2, User, Lock } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { loginSchema } from "@/lib/validations";
 
 export function LoginForm() {
@@ -17,10 +17,7 @@ export function LoginForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error on change
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
     if (serverError) setServerError("");
   };
 
@@ -29,14 +26,12 @@ export function LoginForm() {
     setErrors({});
     setServerError("");
 
-    // Client-side validation
     const result = loginSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
-        if (issue.path[0]) {
+        if (issue.path[0])
           fieldErrors[issue.path[0] as string] = issue.message;
-        }
       });
       setErrors(fieldErrors);
       return;
@@ -51,9 +46,7 @@ export function LoginForm() {
       });
 
       if (response?.error) {
-        setServerError(
-          "Username atau password salah. Silakan coba lagi."
-        );
+        setServerError("Username atau password salah.");
       } else if (response?.ok) {
         router.push("/dashboard");
         router.refresh();
@@ -66,84 +59,45 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      {/* Server Error */}
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
       {serverError && (
-        <div
-          className="rounded-xl p-3 mb-4 flex items-start gap-3"
-          style={{
-            backgroundColor: "rgba(220,38,38,0.1)",
-            border: "1px solid rgba(220,38,38,0.3)",
-          }}
-        >
-          <span className="text-red-600 font-bold mt-0.5">!</span>
-          <p style={{ color: "#DC2626", fontSize: "16px", fontWeight: 500 }}>
-            {serverError}
-          </p>
+        <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 text-sm text-red-700 dark:text-red-400">
+          {serverError}
         </div>
       )}
 
-      {/* Username Field */}
-      <div className="mb-3">
+      <div>
         <label
           htmlFor="username"
-          className="block font-semibold mb-1"
-          style={{ color: "var(--color-text)", fontSize: "15px" }}
+          className="block text-sm font-medium text-[var(--color-text)] mb-1.5"
         >
           Username
         </label>
-        <div className="relative">
-          <div
-            className="absolute left-4 top-1/2 -translate-y-1/2"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            <User size={20} />
-          </div>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            autoComplete="username"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Masukkan username Anda"
-            className="form-input pl-12"
-            style={{
-              borderColor: errors.username
-                ? "#DC2626"
-                : "var(--color-input-border)",
-            }}
-            disabled={isLoading}
-            aria-describedby={errors.username ? "username-error" : undefined}
-          />
-        </div>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          autoComplete="username"
+          value={formData.username}
+          onChange={handleChange}
+          placeholder="Masukkan username"
+          className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
+          style={{ borderColor: errors.username ? "#dc2626" : "var(--color-input-border)" }}
+          disabled={isLoading}
+        />
         {errors.username && (
-          <p
-            id="username-error"
-            className="mt-2 font-medium"
-            style={{ color: "#DC2626", fontSize: "15px" }}
-          >
-            {errors.username}
-          </p>
+          <p className="mt-1.5 text-xs text-red-600">{errors.username}</p>
         )}
       </div>
 
-      {/* Password Field */}
-      <div className="mb-4">
+      <div>
         <label
           htmlFor="password"
-          className="block font-semibold mb-1"
-          style={{ color: "var(--color-text)", fontSize: "15px" }}
+          className="block text-sm font-medium text-[var(--color-text)] mb-1.5"
         >
           Password
         </label>
         <div className="relative">
-          <div
-            className="absolute left-4 top-1/2 -translate-y-1/2"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            <Lock size={20} />
-          </div>
           <input
             id="password"
             name="password"
@@ -151,48 +105,34 @@ export function LoginForm() {
             autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Masukkan password Anda"
-            className="form-input pl-12 pr-12"
-            style={{
-              borderColor: errors.password
-                ? "#DC2626"
-                : "var(--color-input-border)",
-            }}
+            placeholder="Masukkan password"
+            className="w-full px-3.5 py-2.5 pr-10 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
+            style={{ borderColor: errors.password ? "#dc2626" : "var(--color-input-border)" }}
             disabled={isLoading}
-            aria-describedby={errors.password ? "password-error" : undefined}
           />
           <button
             type="button"
-            className="absolute right-4 top-1/2 -translate-y-1/2"
-            style={{ color: "var(--color-text-muted)" }}
             onClick={() => setShowPassword((s) => !s)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
             tabIndex={-1}
             aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
         {errors.password && (
-          <p
-            id="password-error"
-            className="mt-2 font-medium"
-            style={{ color: "#DC2626", fontSize: "15px" }}
-          >
-            {errors.password}
-          </p>
+          <p className="mt-1.5 text-xs text-red-600">{errors.password}</p>
         )}
       </div>
 
-      {/* Submit Button */}
       <button
         type="submit"
-        className="btn-primary w-full justify-center text-base py-2.5 mt-2"
         disabled={isLoading}
-        id="login-submit"
+        className="w-full py-2.5 px-4 rounded-lg bg-[var(--color-primary)] text-white font-medium text-sm hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isLoading ? (
           <>
-            <Loader2 size={20} className="spinner" />
+            <Loader2 size={16} className="animate-spin" />
             Memproses...
           </>
         ) : (
