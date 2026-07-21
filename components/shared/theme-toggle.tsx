@@ -13,9 +13,7 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return (
-      <div className="w-11 h-11 rounded-full" style={{ backgroundColor: "var(--color-surface)" }} />
-    );
+    return <div className="w-9 h-9 rounded-lg bg-[var(--color-surface-2)]" />;
   }
 
   const isDark = theme === "dark";
@@ -23,20 +21,10 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-      style={{
-        backgroundColor: "var(--color-surface)",
-        border: "2px solid var(--color-border)",
-        color: "var(--color-text)",
-      }}
-      title={isDark ? "Ganti ke Mode Terang" : "Ganti ke Mode Gelap"}
+      className="w-9 h-9 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)] flex items-center justify-center transition-colors"
       aria-label={isDark ? "Aktifkan mode terang" : "Aktifkan mode gelap"}
     >
-      {isDark ? (
-        <Sun size={20} style={{ color: "#FFDE00" }} />
-      ) : (
-        <Moon size={20} style={{ color: "#555555" }} />
-      )}
+      {isDark ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} />}
     </button>
   );
 }
