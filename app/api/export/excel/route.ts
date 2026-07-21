@@ -1,4 +1,3 @@
-export const runtime = "edge";
 import { NextResponse } from "next/server";
 
 // Fitur Export Excel dinonaktifkan sementara untuk kompatibilitas Cloudflare Pages.
