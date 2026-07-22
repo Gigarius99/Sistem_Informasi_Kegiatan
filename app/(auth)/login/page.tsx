@@ -59,7 +59,7 @@ export default function LoginPage() {
               }}
             >
               <img
-                src="/Seal_of_Wonogiri_Regency.svg"
+                src="/Seal_of_Wonogiri_Regency.png"
                 alt="Logo Kabupaten Wonogiri"
                 style={{ width: "56px", height: "auto" }}
               />
