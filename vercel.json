@@ -3,16 +3,13 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["sin1"],
-  "env": {
-    "NODE_ENV": "production"
-  },
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "$FRONTEND_URL"
+          "value": "https://jadwalkegiatan.pages.dev"
         },
         {
           "key": "Access-Control-Allow-Credentials",
