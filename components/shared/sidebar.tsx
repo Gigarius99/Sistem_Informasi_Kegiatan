@@ -119,7 +119,7 @@ export function Sidebar({ userRole, userName, onClose }: SidebarProps) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
           <img
-            src="/Seal_of_Wonogiri_Regency.png"
+            src="/Seal_of_Wonogiri_Regency.svg"
             alt="Logo"
             style={{ width: "36px", height: "36px", objectFit: "contain", flexShrink: 0 }}
           />
