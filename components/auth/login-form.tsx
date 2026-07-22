@@ -59,17 +59,17 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+    <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       {serverError && (
-        <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 text-sm text-red-700 dark:text-red-400">
+        <div style={{ borderRadius: "8px", background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.2)", padding: "12px", fontSize: "14px", color: "#DC2626" }}>
           {serverError}
         </div>
       )}
 
-      <div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <label
           htmlFor="username"
-          className="block text-sm font-medium text-[var(--color-text)] mb-1.5"
+          style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text)" }}
         >
           Username
         </label>
@@ -81,23 +81,23 @@ export function LoginForm() {
           value={formData.username}
           onChange={handleChange}
           placeholder="Masukkan username"
-          className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
+          className="input"
           style={{ borderColor: errors.username ? "#dc2626" : "var(--color-input-border)" }}
           disabled={isLoading}
         />
         {errors.username && (
-          <p className="mt-1.5 text-xs text-red-600">{errors.username}</p>
+          <p style={{ marginTop: "4px", fontSize: "12px", color: "#dc2626", margin: 0 }}>{errors.username}</p>
         )}
       </div>
 
-      <div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <label
           htmlFor="password"
-          className="block text-sm font-medium text-[var(--color-text)] mb-1.5"
+          style={{ fontSize: "14px", fontWeight: 600, color: "var(--color-text)" }}
         >
           Password
         </label>
-        <div className="relative">
+        <div style={{ position: "relative" }}>
           <input
             id="password"
             name="password"
@@ -106,14 +106,25 @@ export function LoginForm() {
             value={formData.password}
             onChange={handleChange}
             placeholder="Masukkan password"
-            className="w-full px-3.5 py-2.5 pr-10 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
-            style={{ borderColor: errors.password ? "#dc2626" : "var(--color-input-border)" }}
+            className="input"
+            style={{ paddingRight: "40px", borderColor: errors.password ? "#dc2626" : "var(--color-input-border)" }}
             disabled={isLoading}
           />
           <button
             type="button"
             onClick={() => setShowPassword((s) => !s)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+            style={{
+              position: "absolute",
+              right: "12px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "transparent",
+              border: "none",
+              color: "var(--text-muted)",
+              cursor: "pointer",
+              padding: 0,
+              display: "flex"
+            }}
             tabIndex={-1}
             aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
           >
@@ -121,25 +132,19 @@ export function LoginForm() {
           </button>
         </div>
         {errors.password && (
-          <p className="mt-1.5 text-xs text-red-600">{errors.password}</p>
+          <p style={{ marginTop: "4px", fontSize: "12px", color: "#dc2626", margin: 0 }}>{errors.password}</p>
         )}
       </div>
 
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full py-2.5 px-4 rounded-lg text-white font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        style={{ backgroundColor: "var(--color-primary)" }}
-        onMouseEnter={(e) => {
-          if (!isLoading) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-primary-hover)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-primary)";
-        }}
+        className="btn-primary"
+        style={{ marginTop: "8px", width: "100%", justifyContent: "center", padding: "12px 16px" }}
       >
         {isLoading ? (
           <>
-            <Loader2 size={16} className="animate-spin" />
+            <Loader2 size={18} className="animate-spin" />
             Memproses...
           </>
         ) : (

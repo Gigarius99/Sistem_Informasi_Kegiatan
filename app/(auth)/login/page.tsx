@@ -9,52 +9,74 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ backgroundColor: "var(--color-bg)" }}
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px",
+        backgroundColor: "var(--color-bg)",
+        position: "relative"
+      }}
     >
       {/* Garis aksen atas */}
       <div
-        className="fixed top-0 left-0 right-0 h-1"
-        style={{ backgroundColor: "var(--color-primary)" }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "4px",
+          backgroundColor: "var(--color-primary)"
+        }}
       />
       <div
-        className="fixed top-1 left-0 right-0 h-0.5"
-        style={{ backgroundColor: "var(--color-accent)" }}
+        style={{
+          position: "absolute",
+          top: "4px",
+          left: 0,
+          right: 0,
+          height: "2px",
+          backgroundColor: "var(--color-accent)"
+        }}
       />
 
-      <div className="w-full max-w-sm">
+      <div style={{ width: "100%", maxWidth: "400px" }}>
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
+        <div style={{ textAlign: "center", marginBottom: "32px" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "16px" }}>
             <div
-              className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg"
               style={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "16px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
                 backgroundColor: "var(--color-surface)",
                 border: "2px solid var(--color-primary)",
+                boxShadow: "var(--shadow-md)"
               }}
             >
               <img
                 src="/Seal_of_Wonogiri_Regency.png"
                 alt="Logo Kabupaten Wonogiri"
-                className="w-14 h-auto"
+                style={{ width: "56px", height: "auto" }}
               />
             </div>
           </div>
           <h1
-            className="text-xl font-bold"
-            style={{ color: "var(--color-primary)" }}
+            style={{ fontSize: "24px", fontWeight: 800, color: "var(--color-primary)", margin: "0 0 4px 0", lineHeight: 1.2 }}
           >
             Sistem Informasi
           </h1>
           <p
-            className="text-base font-semibold"
-            style={{ color: "var(--color-text)" }}
+            style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text)", margin: "0 0 4px 0" }}
           >
             Agenda Kegiatan
           </p>
           <p
-            className="text-sm mt-1"
-            style={{ color: "var(--color-text-muted)" }}
+            style={{ fontSize: "14px", color: "var(--color-text-muted)", margin: 0 }}
           >
             Kabupaten Wonogiri
           </p>
@@ -62,22 +84,19 @@ export default function LoginPage() {
 
         {/* Card login */}
         <div
-          className="rounded-2xl p-6 shadow-lg"
+          className="card animate-fade-in"
           style={{
-            backgroundColor: "var(--color-card)",
-            border: "1px solid var(--color-card-border)",
-            boxShadow: "0 4px 24px var(--color-shadow)",
+            padding: "32px",
+            boxShadow: "0 8px 32px var(--color-shadow)"
           }}
         >
           {/* Judul dengan aksen */}
-          <div className="flex items-center gap-2 mb-6">
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
             <div
-              className="w-1 h-6 rounded-full"
-              style={{ backgroundColor: "var(--color-primary)" }}
+              style={{ width: "4px", height: "24px", borderRadius: "4px", backgroundColor: "var(--color-primary)" }}
             />
             <h2
-              className="text-base font-bold"
-              style={{ color: "var(--color-text)" }}
+              style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text)", margin: 0 }}
             >
               Masuk ke Akun Anda
             </h2>
@@ -86,8 +105,7 @@ export default function LoginPage() {
         </div>
 
         <p
-          className="text-center text-xs mt-6"
-          style={{ color: "var(--color-text-muted)" }}
+          style={{ textAlign: "center", fontSize: "12px", color: "var(--color-text-muted)", marginTop: "24px" }}
         >
           © 2025 Pemerintah Kabupaten Wonogiri
         </p>

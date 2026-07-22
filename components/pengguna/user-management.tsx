@@ -113,59 +113,92 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="font-bold text-xl">Daftar {targetRoleName}</h2>
-        <button onClick={handleOpenAdd} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-          <PlusCircle size={20} /> Tambah
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "var(--text-primary)", margin: 0 }}>
+          Daftar {targetRoleName}
+        </h2>
+        <button onClick={handleOpenAdd} className="btn-primary">
+          <PlusCircle size={20} />
+          <span>Tambah</span>
         </button>
       </div>
 
-      <div className="rounded-xl overflow-hidden shadow-sm" style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+      <div className="card" style={{ overflow: "hidden" }}>
+        <div style={{ overflowX: "auto" }}>
+          <table className="data-table">
             <thead>
-              <tr style={{ backgroundColor: "var(--color-surface-2)" }}>
-                <th className="px-6 py-4 font-semibold text-sm">Nama</th>
-                <th className="px-6 py-4 font-semibold text-sm">Username</th>
-                <th className="px-6 py-4 font-semibold text-sm">Dibuat Pada</th>
-                <th className="px-6 py-4 font-semibold text-sm text-right">Aksi</th>
+              <tr>
+                <th>Nama</th>
+                <th>Username</th>
+                <th>Dibuat Pada</th>
+                <th style={{ textAlign: "right", width: "100px" }}>Aksi</th>
               </tr>
             </thead>
             <tbody>
               {isLoading ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center">
-                    <Loader2 size={24} className="animate-spin mx-auto" style={{ color: "var(--color-primary)" }} />
+                  <td colSpan={4} style={{ textAlign: "center", padding: "32px" }}>
+                    <Loader2 size={24} className="animate-spin" style={{ margin: "0 auto", color: "var(--primary)" }} />
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center" style={{ color: "var(--color-text-muted)" }}>
+                  <td colSpan={4} style={{ textAlign: "center", padding: "32px", color: "var(--text-muted)" }}>
                     Belum ada data pengguna
                   </td>
                 </tr>
               ) : (
                 users.map((user) => (
-                  <tr key={user.id} style={{ borderTop: "1px solid var(--color-border)" }}>
-                    <td className="px-6 py-4 font-medium">{user.name}</td>
-                    <td className="px-6 py-4 font-mono text-sm">{user.username}</td>
-                    <td className="px-6 py-4 text-sm">{formatDateIndonesia(new Date(user.createdAt))}</td>
-                    <td className="px-6 py-4 text-right space-x-2">
-                      <button 
-                        onClick={() => handleOpenEdit(user)}
-                        className="p-2 rounded-lg hover:bg-black/5" 
-                        title="Edit"
-                      >
-                        <Edit2 size={18} style={{ color: "var(--color-primary)" }} />
-                      </button>
-                      <button 
-                        onClick={() => handleDelete(user.id, user.name)}
-                        className="p-2 rounded-lg hover:bg-black/5" 
-                        title="Hapus"
-                      >
-                        <Trash2 size={18} style={{ color: "#DC2626" }} />
-                      </button>
+                  <tr key={user.id}>
+                    <td style={{ fontWeight: 600 }}>{user.name}</td>
+                    <td style={{ fontFamily: "monospace", fontSize: "13px", color: "var(--text-secondary)" }}>{user.username}</td>
+                    <td>{formatDateIndonesia(new Date(user.createdAt))}</td>
+                    <td style={{ textAlign: "right" }}>
+                      <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
+                        <button 
+                          onClick={() => handleOpenEdit(user)}
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "8px",
+                            border: "none",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "rgba(217,119,6,0.15)",
+                            color: "#D97706",
+                            transition: "transform 0.15s"
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                          title="Edit"
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(user.id, user.name)}
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "8px",
+                            border: "none",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "rgba(220,38,38,0.15)",
+                            color: "#DC2626",
+                            transition: "transform 0.15s"
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                          title="Hapus"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -175,66 +208,67 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
         </div>
       </div>
 
+      {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-[fadeIn_0.3s_ease-out]">
-          <div className="w-full max-w-md rounded-2xl p-6 shadow-xl" style={{ backgroundColor: "var(--color-card)", border: "1px solid var(--color-card-border)" }}>
-            <h2 className="text-xl font-bold mb-6">
+        <div className="animate-fade-in" style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)" }}>
+          <div className="card animate-slide-in" style={{ width: "100%", maxWidth: "450px", padding: "24px" }}>
+            <h2 style={{ fontSize: "20px", fontWeight: 700, margin: "0 0 24px 0", color: "var(--text-primary)" }}>
               {isEditMode ? "Edit Pengguna" : `Tambah ${targetRoleName}`}
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-bold mb-1">Nama Lengkap</label>
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "14px", fontWeight: 600 }}>Nama Lengkap</label>
                 <input 
                   type="text" 
                   value={formData.name} 
                   onChange={(e) => setFormData(p => ({...p, name: e.target.value}))}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] w-full"
+                  className="input"
                   required
                 />
               </div>
               
-              <div>
-                <label className="block text-sm font-bold mb-1">Username</label>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "14px", fontWeight: 600 }}>Username</label>
                 <input 
                   type="text" 
                   value={formData.username} 
                   onChange={(e) => setFormData(p => ({...p, username: e.target.value}))}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] w-full bg-gray-50"
+                  className="input"
+                  style={isEditMode ? { backgroundColor: "var(--bg-surface)", color: "var(--text-muted)" } : {}}
                   required
                   disabled={isEditMode}
                 />
-                {isEditMode && <p className="text-xs mt-1 text-gray-500">Username tidak dapat diubah</p>}
+                {isEditMode && <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>Username tidak dapat diubah</p>}
               </div>
 
-              <div>
-                <label className="block text-sm font-bold mb-1">
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "14px", fontWeight: 600 }}>
                   {isEditMode ? "Password Baru (Kosongkan jika tidak diubah)" : "Password"}
                 </label>
                 <input 
                   type="password" 
                   value={formData.password} 
                   onChange={(e) => setFormData(p => ({...p, password: e.target.value}))}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] w-full"
+                  className="input"
                   required={!isEditMode}
                   minLength={4}
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px", marginTop: "16px", paddingTop: "16px", borderTop: "1px solid var(--border)" }}>
                 <button 
                   type="button" 
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl font-semibold"
-                  style={{ backgroundColor: "var(--color-surface)", color: "var(--color-text)" }}
+                  className="btn-outline"
                 >
                   Batal
                 </button>
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-primary"
                 >
-                  {isSubmitting ? <Loader2 size={20} className="animate-spin" /> : "Simpan"}
+                  {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : "Simpan"}
                 </button>
               </div>
             </form>
