@@ -128,7 +128,14 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full py-2.5 px-4 rounded-lg bg-[var(--color-primary)] text-white font-medium text-sm hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full py-2.5 px-4 rounded-lg text-white font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        style={{ backgroundColor: "var(--color-primary)" }}
+        onMouseEnter={(e) => {
+          if (!isLoading) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-primary-hover)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-primary)";
+        }}
       >
         {isLoading ? (
           <>

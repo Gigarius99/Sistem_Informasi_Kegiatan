@@ -1,41 +1,79 @@
 @import "tailwindcss";
 
+/* =====================================================
+   Palet: colorhunt.co/palette/d2001affde00fffae7efefef
+   #D2001A  — Merah   (Primary)
+   #FFDE00  — Kuning  (Accent)
+   #FFFAE7  — Krem    (Background)
+   #EFEFEF  — Abu-abu (Surface)
+   ===================================================== */
+
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Warna Tailwind custom (bisa dipakai sebagai bg-primary, text-accent, dll) */
+  --color-primary:       #D2001A;
+  --color-primary-dark:  #b50016;
+  --color-accent:        #FFDE00;
+  --color-surface:       #EFEFEF;
+  --color-background:    #FFFAE7;
 }
 
+/* ─── CSS Custom Properties untuk komponen (var(--color-*)) ─── */
 :root {
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-primary-light: rgba(37, 99, 235, 0.08);
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-surface-2: #f1f5f9;
-  --color-text: #0f172a;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
-  --color-card: #ffffff;
-  --color-shadow: rgba(0, 0, 0, 0.06);
-  --color-input-bg: #ffffff;
-  --color-input-border: #cbd5e1;
+  --color-primary:          #D2001A;
+  --color-primary-hover:    #b50016;
+  --color-primary-light:    rgba(210, 0, 26, 0.09);
+
+  --color-accent:           #FFDE00;
+  --color-accent-hover:     #e6c800;
+  --color-accent-light:     rgba(255, 222, 0, 0.18);
+
+  --color-bg:               #FFFAE7;
+  --color-background:       #FFFAE7;
+  --color-surface:          #EFEFEF;
+  --color-surface-2:        #e3e3e3;
+  --color-card:             #ffffff;
+  --color-card-border:      #e0ddd5;
+
+  --color-text:             #1c1410;
+  --color-text-muted:       #6b5f57;
+
+  --color-border:           #d8d4cc;
+  --color-input-bg:         #ffffff;
+  --color-input-border:     #c8c4bc;
+
+  --color-shadow:           rgba(210, 0, 26, 0.07);
 }
 
+/* ─── Dark mode ─── */
 .dark {
-  --color-primary: #60a5fa;
-  --color-primary-hover: #93bbfd;
-  --color-primary-light: rgba(96, 165, 250, 0.1);
-  --color-bg: #0f172a;
-  --color-surface: #1e293b;
-  --color-surface-2: #334155;
-  --color-text: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-border: #334155;
-  --color-card: #1e293b;
-  --color-shadow: rgba(0, 0, 0, 0.3);
-  --color-input-bg: #1e293b;
-  --color-input-border: #475569;
+  --color-primary:          #ff3350;
+  --color-primary-hover:    #ff6070;
+  --color-primary-light:    rgba(210, 0, 26, 0.20);
+
+  --color-accent:           #FFDE00;
+  --color-accent-hover:     #ffe840;
+  --color-accent-light:     rgba(255, 222, 0, 0.14);
+
+  --color-bg:               #18120f;
+  --color-background:       #18120f;
+  --color-surface:          #261b17;
+  --color-surface-2:        #321f1a;
+  --color-card:             #20160f;
+  --color-card-border:      #3a2820;
+
+  --color-text:             #f5ede4;
+  --color-text-muted:       #9d8478;
+
+  --color-border:           #3a2820;
+  --color-input-bg:         #261b17;
+  --color-input-border:     #4a3428;
+
+  --color-shadow:           rgba(0, 0, 0, 0.45);
 }
 
+/* ─── Base ─── */
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -45,41 +83,42 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-primary-light);
+  background-color: var(--color-accent-light);
   color: var(--color-primary);
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* ─── Focus ring ─── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* ─── Search bar container ─── */
+.search-bar {
+  background-color: var(--color-card);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
-}
-
+/* ─── Animasi ─── */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
