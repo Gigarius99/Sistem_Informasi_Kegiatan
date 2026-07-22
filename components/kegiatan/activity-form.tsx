@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import { apiFetch } from "@/lib/api";
 import type { Activity } from "@/types";
 
 interface FieldConfig {
@@ -56,7 +57,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
 
   const fetchFields = async () => {
     try {
-      const res = await fetch("/api/fields");
+      const res = await apiFetch("/api/fields");
       const data = await res.json();
       if (data.success) {
         setFields(data.data);
@@ -124,9 +125,8 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
     setFields(items); // Optimistic UI update
 
     try {
-      await fetch("/api/fields", {
+      await apiFetch("/api/fields", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "REORDER", fields: items }),
       });
     } catch {
@@ -150,9 +150,8 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
     };
 
     try {
-      const res = await fetch("/api/fields", {
+      const res = await apiFetch("/api/fields", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       const data = await res.json();
@@ -171,9 +170,8 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
   const handleDeleteField = async (id: string, name: string) => {
     if (!confirm("Hapus variabel ini secara permanen? Data pada kegiatan sebelumnya mungkin akan hilang di tabel.")) return;
     try {
-      const res = await fetch("/api/fields", {
+      const res = await apiFetch("/api/fields", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "DELETE", fieldData: { id } }),
       });
       const data = await res.json();
@@ -244,9 +242,8 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
       const url = mode === "edit" ? `/api/activities/${initialData!.id}` : "/api/activities";
       const method = mode === "edit" ? "PUT" : "POST";
 
-      const response = await fetch(url, {
+      const response = await apiFetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 

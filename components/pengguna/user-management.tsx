@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { PlusCircle, Loader2, Trash2, Edit2, KeyRound } from "lucide-react";
+import { PlusCircle, Loader2, Trash2, Edit2 } from "lucide-react";
 import { formatDateIndonesia } from "@/lib/utils";
+import { apiFetch } from "@/lib/api";
 
 interface UserData {
   id: string;
@@ -31,7 +32,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/users");
+      const res = await apiFetch("/api/users");
       const json = await res.json();
       if (json.success) {
         setUsers(json.data);
@@ -65,7 +66,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
     if (!confirm(`Yakin ingin menghapus pengguna ${name}?`)) return;
     
     try {
-      const res = await fetch(`/api/users/${id}`, { method: "DELETE" });
+      const res = await apiFetch(`/api/users/${id}`, { method: "DELETE" });
       const json = await res.json();
       if (json.success) {
         toast.success(json.message);
@@ -90,7 +91,7 @@ export function UserManagement({ userRole, targetRoleName }: Props) {
         ? { name: formData.name, password: formData.password || undefined }
         : { name: formData.name, username: formData.username, password: formData.password };
         
-      const res = await fetch(url, {
+      const res = await apiFetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

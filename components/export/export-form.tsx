@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { FileSpreadsheet, Download, Loader2, Info } from "lucide-react";
+import { apiFetch } from "@/lib/api";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export function ExportForm() {
   const [startDate, setStartDate] = useState("");
@@ -27,7 +30,9 @@ export function ExportForm() {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({ startDate, endDate });
-      const response = await fetch(`/api/export/excel?${params.toString()}`);
+      const response = await apiFetch(`/api/export/excel?${params.toString()}`, {
+        headers: {}, // override default Content-Type for file download
+      });
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));

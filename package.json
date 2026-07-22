@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "prisma generate && npx @opennextjs/cloudflare build",
-    "build:node": "prisma generate && next build",
+    "dev": "next dev --turbopack",
+    "build": "prisma generate && prisma db push --accept-data-loss && next build",
+    "build:cloudflare": "prisma generate && npx @opennextjs/cloudflare build",
+    "deploy:cloudflare": "npx @opennextjs/cloudflare deploy",
     "start": "next start",
     "lint": "eslint",
     "db:generate": "prisma generate",

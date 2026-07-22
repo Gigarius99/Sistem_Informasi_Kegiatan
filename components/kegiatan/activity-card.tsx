@@ -14,6 +14,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { formatDateIndonesia, formatTime } from "@/lib/utils";
+import { apiFetch } from "@/lib/api";
 import { DeleteConfirmDialog } from "@/components/kegiatan/delete-confirm-dialog";
 import type { Activity, Role } from "@/types";
 
@@ -31,7 +32,7 @@ export function ActivityCard({ activity, userRole }: ActivityCardProps) {
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      const response = await fetch(`/api/activities/${activity.id}`, {
+      const response = await apiFetch(`/api/activities/${activity.id}`, {
         method: "DELETE",
       });
       const data = await response.json();

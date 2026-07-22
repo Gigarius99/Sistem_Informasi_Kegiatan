@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { Search, CalendarRange, X, Pencil, Trash2, Loader2, Maximize, Minimize } from "lucide-react";
 import { cn, formatDateIndonesia, formatTime } from "@/lib/utils";
+import { apiFetch } from "@/lib/api";
 import { DeleteConfirmDialog } from "@/components/kegiatan/delete-confirm-dialog";
 import type { Activity, Role } from "@/types";
 
@@ -56,7 +57,7 @@ export function ActivityList({
 
   const fetchFields = async () => {
     try {
-      const res = await fetch("/api/fields");
+      const res = await apiFetch("/api/fields");
       const data = await res.json();
       if (data.success) {
         setFields(data.data);
@@ -104,7 +105,7 @@ export function ActivityList({
     
     setIsDeleting(true);
     try {
-      const response = await fetch(`/api/activities/${deleteActivityId}`, {
+      const response = await apiFetch(`/api/activities/${deleteActivityId}`, {
         method: "DELETE",
       });
       const data = await response.json();
