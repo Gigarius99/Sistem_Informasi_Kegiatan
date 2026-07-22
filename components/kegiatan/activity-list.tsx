@@ -161,21 +161,20 @@ export function ActivityList({
 
   if (activities.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--color-text-muted)]">
-        <CalendarRange size={80} />
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 20px", textAlign: "center", color: "var(--text-muted)" }}>
+        <CalendarRange size={64} style={{ marginBottom: "16px", color: "var(--text-muted)" }} />
         <p
-          className="font-bold mb-2"
-          style={{ fontSize: "22px", color: "var(--color-text)" }}
+          style={{ fontSize: "22px", fontWeight: 700, color: "var(--text-primary)", margin: "0 0 8px 0" }}
         >
           Belum Ada Kegiatan
         </p>
-        <p style={{ fontSize: "17px", color: "var(--color-text-muted)", marginBottom: "24px" }}>
+        <p style={{ fontSize: "15px", color: "var(--text-muted)", marginBottom: "24px" }}>
           {isAdmin
             ? "Mulai tambahkan kegiatan pertama Anda."
             : "Belum ada kegiatan yang dijadwalkan."}
         </p>
         {isAdmin && (
-          <Link href="/kegiatan/tambah" className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          <Link href="/kegiatan/tambah" className="btn-primary">
             Tambah Kegiatan Pertama
           </Link>
         )}
@@ -187,51 +186,50 @@ export function ActivityList({
     <div>
       {/* Search & Filter */}
       {showSearch && (
-        <div className="search-bar mb-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 flex flex-col gap-1">
-              <label className="text-xs font-semibold" style={{ color: "var(--color-text-muted)" }}>Pencarian Cepat</label>
-              <div className="relative">
+        <div className="card" style={{ padding: "16px 20px", marginBottom: "24px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+            <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-muted)" }}>Pencarian Cepat</label>
+              <div style={{ position: "relative" }}>
                 <Search
-                  size={20}
-                  className="absolute left-4 top-1/2 -translate-y-1/2"
-                  style={{ color: "var(--color-text-muted)" }}
+                  size={18}
+                  style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }}
                 />
                 <input
                   type="text"
                   placeholder="Cari judul, lokasi, atau dresscode..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] pl-12 w-full"
-                  style={{ fontSize: "16px" }}
+                  className="input"
+                  style={{ paddingLeft: "42px" }}
                 />
               </div>
             </div>
-            <div className="flex gap-3 flex-wrap">
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold" style={{ color: "var(--color-text-muted)" }}>Dari Tanggal</label>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-muted)" }}>Dari Tanggal</label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
-                  style={{ fontSize: "15px", minWidth: "150px" }}
+                  className="input"
+                  style={{ minWidth: "150px" }}
                 />
               </div>
-              <div className="flex flex-col gap-1">
-                <label className="text-xs font-semibold" style={{ color: "var(--color-text-muted)" }}>Sampai Tanggal</label>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "12px", fontWeight: 600, color: "var(--text-muted)" }}>Sampai Tanggal</label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)]"
-                  style={{ fontSize: "15px", minWidth: "150px" }}
+                  className="input"
+                  style={{ minWidth: "150px" }}
                 />
               </div>
               {hasFilters && (
-                <div className="flex items-end">
-                  <button onClick={clearFilters} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors py-3">
-                    <X size={18} /> Hapus
+                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                  <button onClick={clearFilters} className="btn-outline" style={{ height: "42px", padding: "0 16px" }}>
+                    <X size={16} /> Hapus
                   </button>
                 </div>
               )}
@@ -242,43 +240,65 @@ export function ActivityList({
 
       {/* Empty Filter Result */}
       {filtered.length === 0 && hasFilters ? (
-        <div className="flex flex-col items-center justify-center py-16 text-center text-[var(--color-text-muted)]">
-          <Search size={60} />
-          <p className="font-bold mb-2" style={{ fontSize: "20px", color: "var(--color-text)" }}>Tidak Ada Hasil</p>
-          <p style={{ fontSize: "16px", color: "var(--color-text-muted)" }}>Tidak ada kegiatan yang sesuai.</p>
-          <button onClick={clearFilters} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors mt-4">Hapus Filter</button>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "64px 20px", textAlign: "center" }}>
+          <Search size={48} style={{ color: "var(--text-muted)", marginBottom: "16px" }} />
+          <p style={{ fontSize: "20px", fontWeight: 700, color: "var(--text-primary)", margin: "0 0 8px 0" }}>Tidak Ada Hasil</p>
+          <p style={{ fontSize: "15px", color: "var(--text-muted)", margin: "0 0 20px 0" }}>Tidak ada kegiatan yang sesuai.</p>
+          <button onClick={clearFilters} className="btn-outline">Hapus Filter</button>
         </div>
       ) : (
         <div 
           ref={containerRef}
-          className={cn(
-            "w-full bg-[var(--color-card)] relative transition-all duration-300",
-            isFullscreen 
-              ? "fixed inset-0 z-50 p-4 md:p-8 overflow-y-auto" 
-              : "rounded-xl border border-[var(--color-border)] shadow-sm overflow-hidden"
-          )}
-          style={isFullscreen ? { backgroundColor: "var(--color-background)" } : {}}
+          style={{
+            width: "100%",
+            background: "var(--bg-card)",
+            position: "relative",
+            transition: "all 0.3s",
+            ...(isFullscreen 
+              ? { position: "fixed", inset: 0, zIndex: 50, padding: "24px", overflowY: "auto", background: "var(--bg-main)" } 
+              : { borderRadius: "var(--radius-lg)", border: "1px solid var(--border)", overflow: "hidden" })
+          }}
         >
           {isFullscreen && (
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl md:text-4xl font-black text-[var(--color-text)]">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
+              <h2 style={{ fontSize: "28px", fontWeight: 800, color: "var(--text-primary)", margin: 0 }}>
                 Daftar Kegiatan
               </h2>
               <button 
                 onClick={toggleFullscreen}
-                className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl transition-colors font-semibold"
+                className="btn-outline"
+                style={{ background: "var(--primary-light)", color: "var(--primary)", borderColor: "transparent", fontWeight: 600 }}
               >
-                <Minimize size={20} />
-                <span className="hidden md:inline">Keluar Fullscreen</span>
+                <Minimize size={18} />
+                <span>Keluar Fullscreen</span>
               </button>
             </div>
           )}
 
           {!isFullscreen && (
-            <div className="absolute top-2 right-2 z-10">
+            <div style={{ position: "absolute", top: "12px", right: "12px", zIndex: 10 }}>
               <button 
                 onClick={toggleFullscreen}
-                className="p-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] shadow-sm text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)] transition-colors opacity-60 hover:opacity-100"
+                style={{
+                  padding: "8px",
+                  borderRadius: "8px",
+                  background: "var(--bg-surface)",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-muted)",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "var(--bg-hover)";
+                  (e.currentTarget as HTMLElement).style.color = "var(--text-primary)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "var(--bg-surface)";
+                  (e.currentTarget as HTMLElement).style.color = "var(--text-muted)";
+                }}
                 title="Fullscreen"
               >
                 <Maximize size={16} />
@@ -286,46 +306,65 @@ export function ActivityList({
             </div>
           )}
 
-          <div className="overflow-x-auto">
-            <table className={cn("w-full text-left", isFullscreen ? "min-w-[1200px]" : "")} style={{ tableLayout: "fixed" }}>
-            <thead className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+          <div style={{ overflowX: "auto" }}>
+            <table className="data-table" style={isFullscreen ? { minWidth: "1200px", tableLayout: "fixed" } : { tableLayout: "fixed" }}>
+            <thead>
               <tr>
                 {fields.map((field) => (
-                  <th key={field.id} className="px-3 py-4 font-bold text-[var(--color-text)] text-[15px] break-words">
+                  <th key={field.id} style={{ paddingRight: "16px" }}>
                     {field.label}
                   </th>
                 ))}
-                {isAdmin && <th className="px-2 py-4 font-bold text-[var(--color-text)] text-[15px] text-center w-[8%]">Aksi</th>}
+                {isAdmin && <th style={{ width: "80px", textAlign: "center" }}>Aksi</th>}
               </tr>
             </thead>
             <tbody>
-              {filtered.map((activity, index) => (
-                <tr 
-                  key={activity.id} 
-                  className={`border-b border-[var(--color-card-border)] transition-colors hover:bg-[var(--color-surface-2)] ${
-                    index % 2 === 0 ? 'bg-[var(--color-card)]' : 'bg-[var(--color-surface)]'
-                  }`}
-                >
+              {filtered.map((activity) => (
+                <tr key={activity.id}>
                   {fields.map((field) => (
-                    <td key={field.id} className="px-3 py-4 align-top text-[15px] font-medium text-[var(--color-text)] break-words whitespace-normal leading-snug">
+                    <td key={field.id} style={{ wordBreak: "break-word" }}>
                       {renderCellContent(activity, field)}
                     </td>
                   ))}
                   {isAdmin && (
-                    <td className="px-2 py-4 align-top text-center">
-                      <div className="flex flex-col xl:flex-row gap-2 justify-center items-center">
+                    <td style={{ textAlign: "center" }}>
+                      <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
                         <Link
                           href={`/kegiatan/${activity.id}/edit`}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:scale-110"
-                          style={{ backgroundColor: "rgba(217,119,6,0.15)", color: "#D97706" }}
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "8px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "rgba(217,119,6,0.15)",
+                            color: "#D97706",
+                            transition: "transform 0.15s"
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                           title="Edit"
                         >
                           <Pencil size={15} />
                         </Link>
                         <button
                           onClick={() => confirmDelete(activity.id, activity.title)}
-                          className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:scale-110"
-                          style={{ backgroundColor: "rgba(220,38,38,0.15)", color: "#DC2626" }}
+                          style={{
+                            width: "32px",
+                            height: "32px",
+                            borderRadius: "8px",
+                            border: "none",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "rgba(220,38,38,0.15)",
+                            color: "#DC2626",
+                            transition: "transform 0.15s"
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                           title="Hapus"
                         >
                           <Trash2 size={15} />

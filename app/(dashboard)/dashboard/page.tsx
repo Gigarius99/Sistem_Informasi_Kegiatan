@@ -18,13 +18,11 @@ export const dynamic = 'force-dynamic';
 async function getDashboardStats(userRole: string, userId: string, parentId: string | null) {
   const now = new Date();
 
-  // Waktu hari ini (WIB = UTC+7)
   const todayStart = new Date(now);
   todayStart.setHours(0, 0, 0, 0);
   const todayEnd = new Date(now);
   todayEnd.setHours(23, 59, 59, 999);
 
-  // Minggu ini (Senin - Minggu)
   const dayOfWeek = now.getDay();
   const startOfWeek = new Date(now);
   startOfWeek.setDate(now.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
@@ -33,7 +31,6 @@ async function getDashboardStats(userRole: string, userId: string, parentId: str
   endOfWeek.setDate(startOfWeek.getDate() + 6);
   endOfWeek.setHours(23, 59, 59, 999);
 
-  // Bulan ini
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
@@ -95,29 +92,43 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <div className="animate-[fadeIn_0.3s_ease-out]">
+    <div className="animate-fade-in" style={{ maxWidth: "1200px", margin: "0 auto" }}>
       <AutoRefresh intervalMs={5000} />
       
       {/* Page Header */}
-      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+      <div 
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "16px",
+          marginBottom: "32px",
+        }}
+      >
         <div>
           <h1
-            className="font-black leading-tight mb-1"
-            style={{ fontSize: "clamp(24px, 4vw, 36px)", color: "var(--color-text)" }}
+            style={{ 
+              fontSize: "clamp(24px, 4vw, 32px)", 
+              color: "var(--text-primary)",
+              fontWeight: 800,
+              margin: "0 0 4px 0",
+              lineHeight: 1.2
+            }}
           >
             Selamat Datang 👋
           </h1>
-          <p style={{ fontSize: "18px", color: "var(--color-text-muted)" }}>
+          <p style={{ fontSize: "16px", color: "var(--text-muted)", margin: 0 }}>
             Berikut adalah ringkasan kegiatan kantor terkini.
           </p>
         </div>
+        
         {userRole === "ADMIN_KEGIATAN" && (
           <Link
             href="/kegiatan/tambah"
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            id="btn-tambah-kegiatan"
+            className="btn-primary"
           >
-            <PlusCircle size={22} />
+            <PlusCircle size={20} />
             Tambah Kegiatan
           </Link>
         )}
@@ -127,27 +138,46 @@ export default async function DashboardPage() {
       <DashboardStats stats={stats} />
 
       {/* Activity List */}
-      <div className="mt-8">
-        <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+      <div style={{ marginTop: "32px" }}>
+        <div 
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "12px",
+            marginBottom: "20px"
+          }}
+        >
           <h2
-            className="font-bold"
-            style={{ fontSize: "24px", color: "var(--color-text)" }}
+            style={{ 
+              fontSize: "20px", 
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              margin: 0
+            }}
           >
             Daftar Kegiatan
           </h2>
           <Link
             href="/kegiatan"
-            className="text-sm font-semibold"
-            style={{ color: "var(--color-primary)" }}
+            style={{ 
+              fontSize: "14px", 
+              fontWeight: 600,
+              color: "var(--primary)",
+              textDecoration: "none"
+            }}
           >
             Lihat Semua →
           </Link>
         </div>
-        <ActivityList
-          activities={activities}
-          userRole={userRole}
-          showSearch={false}
-        />
+        <div className="card">
+          <ActivityList
+            activities={activities}
+            userRole={userRole}
+            showSearch={false}
+          />
+        </div>
       </div>
     </div>
   );

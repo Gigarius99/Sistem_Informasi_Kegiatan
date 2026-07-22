@@ -20,14 +20,31 @@ export function Navbar({ pageTitle, userRole, userName }: NavbarProps) {
       {/* Overlay mobile */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 40,
+          }}
+          className="lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar mobile */}
       {sidebarOpen && (
-        <div className="fixed left-0 top-0 bottom-0 z-50 lg:hidden">
+        <div 
+          style={{
+            position: "fixed",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            zIndex: 50,
+            background: "var(--bg-sidebar)",
+            boxShadow: "var(--shadow-lg)"
+          }}
+          className="lg:hidden"
+        >
           <Sidebar
             userRole={userRole}
             userName={userName}
@@ -37,40 +54,55 @@ export function Navbar({ pageTitle, userRole, userName }: NavbarProps) {
       )}
 
       {/* Navbar header */}
-      <header
-        className="sticky top-0 z-30"
-        style={{
-          backgroundColor: "var(--color-card)",
-          borderBottom: "2px solid var(--color-primary)",
-        }}
-      >
-        {/* Garis aksen kuning tipis di atas */}
-        <div
-          className="h-1 w-full"
-          style={{ backgroundColor: "var(--color-accent)" }}
-        />
+      <header className="topbar">
+        {/* Garis aksen tipis di atas */}
+        <div className="topbar-accent" />
 
-        <div className="flex items-center justify-between px-4 lg:px-6 h-13">
-          <div className="flex items-center gap-3">
+        <div 
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 20px",
+            height: "56px"
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <button
-              className="lg:hidden p-2 rounded-lg transition-colors"
-              style={{ color: "var(--color-text-muted)" }}
+              className="lg:hidden"
+              style={{
+                padding: "8px",
+                borderRadius: "8px",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                color: "var(--text-muted)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "background 0.15s"
+              }}
               onClick={() => setSidebarOpen(true)}
               aria-label="Buka menu navigasi"
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor =
-                  "var(--color-surface)";
+                (e.currentTarget as HTMLElement).style.background = "var(--bg-surface)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor =
-                  "transparent";
+                (e.currentTarget as HTMLElement).style.background = "transparent";
               }}
             >
               <Menu size={20} />
             </button>
             <h1
-              className="text-base font-bold truncate"
-              style={{ color: "var(--color-text)" }}
+              style={{ 
+                fontSize: "15px", 
+                fontWeight: 600, 
+                color: "var(--text-primary)",
+                margin: 0,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis"
+              }}
             >
               {pageTitle}
             </h1>

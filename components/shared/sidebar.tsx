@@ -12,8 +12,8 @@ import {
   LogOut,
   X,
   Users,
+  ChevronRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import type { Role } from "@/types";
 
 interface SidebarProps {
@@ -22,58 +22,49 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-interface NavItem {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-  roles: Role[];
-}
-
-const navItems: NavItem[] = [
+const navItems = [
   {
     href: "/dashboard",
     label: "Dashboard",
-    icon: <LayoutDashboard size={20} />,
-    roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN", "PIMPINAN"],
+    icon: LayoutDashboard,
+    roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN", "PIMPINAN"] as Role[],
   },
   {
     href: "/kegiatan",
     label: "Daftar Kegiatan",
-    icon: <CalendarDays size={20} />,
-    roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN", "PIMPINAN"],
+    icon: CalendarDays,
+    roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN", "PIMPINAN"] as Role[],
   },
   {
     href: "/kegiatan/tambah",
     label: "Tambah Kegiatan",
-    icon: <PlusCircle size={20} />,
-    roles: ["ADMIN_KEGIATAN"],
+    icon: PlusCircle,
+    roles: ["ADMIN_KEGIATAN"] as Role[],
   },
   {
     href: "/riwayat",
     label: "Riwayat Aktivitas",
-    icon: <ClipboardList size={20} />,
-    roles: ["ADMIN_KEGIATAN"],
+    icon: ClipboardList,
+    roles: ["ADMIN_KEGIATAN"] as Role[],
   },
   {
     href: "/pengguna",
     label: "Manajemen Pengguna",
-    icon: <Users size={20} />,
-    roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN"],
+    icon: Users,
+    roles: ["ADMIN_APLIKASI", "ADMIN_KEGIATAN"] as Role[],
   },
   {
     href: "/export",
     label: "Export Excel",
-    icon: <FileSpreadsheet size={20} />,
-    roles: ["ADMIN_KEGIATAN"],
+    icon: FileSpreadsheet,
+    roles: ["ADMIN_KEGIATAN"] as Role[],
   },
 ];
 
 export function Sidebar({ userRole, userName, onClose }: SidebarProps) {
   const pathname = usePathname();
 
-  const filteredNavItems = navItems.filter((item) =>
-    item.roles.includes(userRole)
-  );
+  const items = navItems.filter((item) => item.roles.includes(userRole));
 
   const handleSignOut = async () => {
     await signOut({ callbackUrl: "/login" });
@@ -85,13 +76,13 @@ export function Sidebar({ userRole, userName, onClose }: SidebarProps) {
       return (
         pathname === "/kegiatan" ||
         (pathname.startsWith("/kegiatan/") &&
-          pathname !== "/kegiatan/tambah" &&
+          !pathname.includes("/tambah") &&
           !pathname.includes("/edit"))
       );
     return pathname === href || pathname.startsWith(href + "/");
   };
 
-  const roleBadgeLabel =
+  const roleLabel =
     userRole === "ADMIN_APLIKASI"
       ? "Admin Aplikasi"
       : userRole === "ADMIN_KEGIATAN"
@@ -99,159 +90,185 @@ export function Sidebar({ userRole, userName, onClose }: SidebarProps) {
       : "Pimpinan";
 
   return (
-    <aside
-      className="w-64 min-h-screen flex flex-col flex-shrink-0"
-      style={{
-        backgroundColor: "var(--color-surface)",
-        borderRight: "1px solid var(--color-border)",
-      }}
-    >
-      {/* Tombol tutup (mobile) */}
+    <aside className="sidebar">
+      {/* Tombol close (mobile) */}
       {onClose && (
-        <div className="flex justify-end p-4 lg:hidden">
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: "12px 16px" }}>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg"
-            style={{ color: "var(--color-text-muted)" }}
+            style={{
+              padding: "6px",
+              borderRadius: "8px",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: "var(--text-muted)",
+            }}
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
       )}
 
-      {/* Header: Logo + Info User */}
+      {/* Brand */}
       <div
-        className="p-4"
-        style={{ borderBottom: "1px solid var(--color-border)" }}
+        style={{
+          padding: "20px 20px 16px",
+          borderBottom: "1px solid var(--border)",
+        }}
       >
-        {/* Logo + Nama Instansi */}
-        <div className="flex items-center gap-2 px-2 mb-4">
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
           <img
             src="/Seal_of_Wonogiri_Regency.png"
-            alt="Logo Wonogiri"
-            className="w-8 h-8 flex-shrink-0"
+            alt="Logo"
+            style={{ width: "36px", height: "36px", objectFit: "contain", flexShrink: 0 }}
           />
           <div>
-            <p
-              className="font-bold text-xs leading-tight"
-              style={{ color: "var(--color-primary)" }}
-            >
+            <div style={{ fontWeight: 700, fontSize: "13px", color: "var(--primary)", lineHeight: 1.2 }}>
               Agenda Kegiatan
-            </p>
-            <p
-              className="text-xs"
-              style={{ color: "var(--color-text-muted)" }}
-            >
-              Kab. Wonogiri
-            </p>
+            </div>
+            <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "1px" }}>
+              Kabupaten Wonogiri
+            </div>
           </div>
         </div>
 
-        {/* Info User */}
+        {/* User info */}
         <div
-          className="flex items-center gap-3 px-2 py-2 rounded-lg"
-          style={{ backgroundColor: "var(--color-card)" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "10px 12px",
+            background: "var(--bg-surface)",
+            borderRadius: "var(--radius-md)",
+            border: "1px solid var(--border-light)",
+          }}
         >
           <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0 text-white"
-            style={{ backgroundColor: "var(--color-primary)" }}
+            style={{
+              width: "34px",
+              height: "34px",
+              borderRadius: "8px",
+              background: "var(--primary)",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: 700,
+              fontSize: "14px",
+              flexShrink: 0,
+            }}
           >
             {userName.charAt(0).toUpperCase()}
           </div>
-          <div className="min-w-0 flex-1">
-            <p
-              className="font-semibold text-sm truncate"
-              style={{ color: "var(--color-text)" }}
-            >
-              {userName}
-            </p>
-            <span
-              className="text-xs font-medium px-1.5 py-0.5 rounded inline-block mt-0.5"
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div
               style={{
-                backgroundColor: "var(--color-accent-light)",
-                color: "#8a6800",
+                fontWeight: 600,
+                fontSize: "13px",
+                color: "var(--text-primary)",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
-              {roleBadgeLabel}
+              {userName}
+            </div>
+            <span
+              className="badge badge-yellow"
+              style={{ marginTop: "2px", display: "inline-block" }}
+            >
+              {roleLabel}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Navigasi */}
-      <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
-        <p
-          className="text-xs font-semibold uppercase tracking-wider px-3 pb-2 pt-1"
-          style={{ color: "var(--color-text-muted)" }}
+      {/* Nav */}
+      <nav style={{ flex: 1, padding: "12px 12px", overflowY: "auto" }}>
+        <div
+          style={{
+            fontSize: "10px",
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--text-muted)",
+            padding: "4px 10px 10px",
+          }}
         >
-          Menu
-        </p>
-        {filteredNavItems.map((item) => {
+          Navigasi
+        </div>
+        {items.map((item) => {
           const active = isActive(item.href);
+          const Icon = item.icon;
           return (
             <Link
               key={item.href}
               href={item.href}
               onClick={onClose}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all"
-              style={
-                active
-                  ? {
-                      backgroundColor: "var(--color-primary)",
-                      color: "#ffffff",
-                    }
-                  : {
-                      color: "var(--color-text-muted)",
-                    }
-              }
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "9px 12px",
+                borderRadius: "var(--radius-md)",
+                marginBottom: "2px",
+                fontWeight: active ? 600 : 500,
+                fontSize: "13.5px",
+                textDecoration: "none",
+                transition: "background 0.15s, color 0.15s",
+                background: active ? "var(--primary)" : "transparent",
+                color: active ? "#ffffff" : "var(--text-secondary)",
+              }}
               onMouseEnter={(e) => {
                 if (!active) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "var(--color-card)";
-                  (e.currentTarget as HTMLElement).style.color =
-                    "var(--color-text)";
+                  (e.currentTarget as HTMLElement).style.background = "var(--bg-surface)";
+                  (e.currentTarget as HTMLElement).style.color = "var(--text-primary)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!active) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "transparent";
-                  (e.currentTarget as HTMLElement).style.color =
-                    "var(--color-text-muted)";
+                  (e.currentTarget as HTMLElement).style.background = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = "var(--text-secondary)";
                 }
               }}
             >
-              {item.icon}
-              <span>{item.label}</span>
-              {active && (
-                <span
-                  className="ml-auto w-1.5 h-1.5 rounded-full bg-white opacity-80"
-                />
-              )}
+              <Icon size={17} style={{ flexShrink: 0, opacity: active ? 1 : 0.75 }} />
+              <span style={{ flex: 1 }}>{item.label}</span>
+              {active && <ChevronRight size={14} style={{ opacity: 0.6 }} />}
             </Link>
           );
         })}
       </nav>
 
-      {/* Tombol Keluar */}
-      <div
-        className="p-3"
-        style={{ borderTop: "1px solid var(--color-border)" }}
-      >
+      {/* Keluar */}
+      <div style={{ padding: "12px", borderTop: "1px solid var(--border)" }}>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium w-full transition-colors"
-          style={{ color: "var(--color-primary)" }}
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "9px 12px",
+            borderRadius: "var(--radius-md)",
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "13.5px",
+            fontWeight: 500,
+            color: "var(--primary)",
+            transition: "background 0.15s",
+          }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor =
-              "var(--color-primary-light)";
+            (e.currentTarget as HTMLElement).style.background = "var(--primary-light)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor =
-              "transparent";
+            (e.currentTarget as HTMLElement).style.background = "transparent";
           }}
         >
-          <LogOut size={20} />
+          <LogOut size={17} style={{ flexShrink: 0 }} />
           <span>Keluar</span>
         </button>
       </div>

@@ -5,120 +5,335 @@
    #D2001A  — Merah   (Primary)
    #FFDE00  — Kuning  (Accent)
    #FFFAE7  — Krem    (Background)
-   #EFEFEF  — Abu-abu (Surface)
+   #EFEFEF  — Abu-abu (Surface/Sidebar)
    ===================================================== */
 
-@theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-
-  /* Warna Tailwind custom (bisa dipakai sebagai bg-primary, text-accent, dll) */
-  --color-primary:       #D2001A;
-  --color-primary-dark:  #b50016;
-  --color-accent:        #FFDE00;
-  --color-surface:       #EFEFEF;
-  --color-background:    #FFFAE7;
-}
-
-/* ─── CSS Custom Properties untuk komponen (var(--color-*)) ─── */
 :root {
-  --color-primary:          #D2001A;
-  --color-primary-hover:    #b50016;
-  --color-primary-light:    rgba(210, 0, 26, 0.09);
+  /* Primary */
+  --primary:         #D2001A;
+  --primary-dark:    #a80014;
+  --primary-light:   #fce8eb;
 
-  --color-accent:           #FFDE00;
-  --color-accent-hover:     #e6c800;
-  --color-accent-light:     rgba(255, 222, 0, 0.18);
+  /* Accent */
+  --accent:          #FFDE00;
+  --accent-dark:     #d4b800;
+  --accent-light:    #fff9cc;
 
-  --color-bg:               #FFFAE7;
-  --color-background:       #FFFAE7;
-  --color-surface:          #EFEFEF;
-  --color-surface-2:        #e3e3e3;
-  --color-card:             #ffffff;
-  --color-card-border:      #e0ddd5;
+  /* Backgrounds */
+  --bg-main:         #FFFAE7;
+  --bg-sidebar:      #ffffff;
+  --bg-card:         #ffffff;
+  --bg-surface:      #F5F5F0;
+  --bg-hover:        #F0ECE4;
+  --bg-active:       #D2001A;
 
-  --color-text:             #1c1410;
-  --color-text-muted:       #6b5f57;
+  /* Text */
+  --text-primary:    #1a1410;
+  --text-secondary:  #5a5046;
+  --text-muted:      #9a8e82;
+  --text-on-red:     #ffffff;
 
-  --color-border:           #d8d4cc;
-  --color-input-bg:         #ffffff;
-  --color-input-border:     #c8c4bc;
+  /* Border */
+  --border:          #E8E4DA;
+  --border-light:    #F0EBE0;
 
-  --color-shadow:           rgba(210, 0, 26, 0.07);
+  /* Shadow */
+  --shadow-sm:       0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:       0 4px 16px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-lg:       0 8px 32px rgba(0,0,0,0.10);
+
+  /* Radius */
+  --radius-sm:       6px;
+  --radius-md:       10px;
+  --radius-lg:       14px;
+  --radius-xl:       20px;
+
+  /* Untuk kompatibilitas komponen lama */
+  --color-primary:         var(--primary);
+  --color-primary-hover:   var(--primary-dark);
+  --color-primary-light:   var(--primary-light);
+  --color-accent:          var(--accent);
+  --color-accent-light:    var(--accent-light);
+  --color-bg:              var(--bg-main);
+  --color-background:      var(--bg-main);
+  --color-surface:         var(--bg-surface);
+  --color-surface-2:       var(--bg-hover);
+  --color-card:            var(--bg-card);
+  --color-card-border:     var(--border);
+  --color-text:            var(--text-primary);
+  --color-text-muted:      var(--text-secondary);
+  --color-border:          var(--border);
+  --color-input-bg:        #ffffff;
+  --color-input-border:    var(--border);
+  --color-shadow:          rgba(210,0,26,0.06);
 }
 
-/* ─── Dark mode ─── */
 .dark {
-  --color-primary:          #ff3350;
-  --color-primary-hover:    #ff6070;
-  --color-primary-light:    rgba(210, 0, 26, 0.20);
+  --primary:         #ff3350;
+  --primary-dark:    #ff607a;
+  --primary-light:   rgba(210,0,26,0.18);
 
-  --color-accent:           #FFDE00;
-  --color-accent-hover:     #ffe840;
-  --color-accent-light:     rgba(255, 222, 0, 0.14);
+  --accent:          #FFDE00;
+  --accent-dark:     #ffe840;
+  --accent-light:    rgba(255,222,0,0.14);
 
-  --color-bg:               #18120f;
-  --color-background:       #18120f;
-  --color-surface:          #261b17;
-  --color-surface-2:        #321f1a;
-  --color-card:             #20160f;
-  --color-card-border:      #3a2820;
+  --bg-main:         #17110e;
+  --bg-sidebar:      #1f1510;
+  --bg-card:         #1f1510;
+  --bg-surface:      #2a1d18;
+  --bg-hover:        #331f18;
+  --bg-active:       #D2001A;
 
-  --color-text:             #f5ede4;
-  --color-text-muted:       #9d8478;
+  --text-primary:    #f5ede4;
+  --text-secondary:  #c4a898;
+  --text-muted:      #8a7568;
+  --text-on-red:     #ffffff;
 
-  --color-border:           #3a2820;
-  --color-input-bg:         #261b17;
-  --color-input-border:     #4a3428;
+  --border:          #3d2820;
+  --border-light:    #4a3020;
 
-  --color-shadow:           rgba(0, 0, 0, 0.45);
+  --shadow-sm:       0 1px 3px rgba(0,0,0,0.25);
+  --shadow-md:       0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg:       0 8px 32px rgba(0,0,0,0.4);
+
+  --color-primary:         var(--primary);
+  --color-primary-hover:   var(--primary-dark);
+  --color-primary-light:   var(--primary-light);
+  --color-bg:              var(--bg-main);
+  --color-background:      var(--bg-main);
+  --color-surface:         var(--bg-surface);
+  --color-surface-2:       var(--bg-hover);
+  --color-card:            var(--bg-card);
+  --color-card-border:     var(--border);
+  --color-text:            var(--text-primary);
+  --color-text-muted:      var(--text-secondary);
+  --color-border:          var(--border);
+  --color-input-bg:        var(--bg-surface);
+  --color-input-border:    var(--border);
 }
 
-/* ─── Base ─── */
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
+/* ─── Selection ─── */
 ::selection {
-  background-color: var(--color-accent-light);
-  color: var(--color-primary);
+  background-color: var(--accent-light);
+  color: var(--primary);
 }
 
 /* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-/* ─── Focus ring ─── */
+/* ─── Focus ─── */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ─── Search bar container ─── */
-.search-bar {
-  background-color: var(--color-card);
-  padding: 1.25rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--color-border);
+/* ─── Layout wrapper ─── */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-main);
 }
 
+/* ─── Sidebar ─── */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* ─── Main area ─── */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ─── Topbar ─── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar-accent {
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+/* ─── Card ─── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─── Tombol utama ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: var(--text-on-red);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(210,0,26,0.22);
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(210,0,26,0.32);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* ─── Tombol outline ─── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: var(--bg-surface);
+  border-color: var(--text-muted);
+}
+
+/* ─── Input ─── */
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+.input::placeholder { color: var(--text-muted); }
+
+/* ─── Tabel ─── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.data-table thead tr {
+  background: var(--bg-surface);
+}
+.data-table thead th {
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.data-table tbody tr {
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.12s;
+}
+.data-table tbody tr:hover { background: var(--bg-hover); }
+.data-table tbody td {
+  padding: 12px 16px;
+  color: var(--text-primary);
+  vertical-align: top;
+}
+
+/* ─── Badge ─── */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.badge-red { background: var(--primary-light); color: var(--primary); }
+.badge-yellow { background: var(--accent-light); color: #7a6500; }
+.badge-gray { background: var(--bg-surface); color: var(--text-secondary); }
+
 /* ─── Animasi ─── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-slide-in { animation: slideIn 0.25s ease-out; }
 
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(-12px); }
-  to   { opacity: 1; transform: translateX(0); }
+/* ─── Search bar ─── */
+.search-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
 }

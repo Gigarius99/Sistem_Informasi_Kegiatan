@@ -10,63 +10,78 @@ const statCards = [
     key: "total" as const,
     label: "Total Kegiatan",
     icon: CalendarDays,
-    color: "text-[var(--color-primary)]",
-    bgColor: "bg-[var(--color-primary-light)]",
+    color: "var(--primary)",
+    bgColor: "var(--primary-light)",
     description: "Semua kegiatan tercatat",
   },
   {
     key: "today" as const,
     label: "Hari Ini",
     icon: CalendarCheck,
-    color: "text-emerald-600 dark:text-emerald-400",
-    bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
+    color: "#059669",
+    bgColor: "#d1fae5",
     description: "Jadwal hari ini",
   },
   {
     key: "thisWeek" as const,
     label: "Minggu Ini",
     icon: CalendarClock,
-    color: "text-amber-600 dark:text-amber-400",
-    bgColor: "bg-amber-50 dark:bg-amber-900/20",
+    color: "#d97706",
+    bgColor: "#fef3c7",
     description: "7 hari ke depan",
   },
   {
     key: "thisMonth" as const,
     label: "Bulan Ini",
     icon: Calendar,
-    color: "text-violet-600 dark:text-violet-400",
-    bgColor: "bg-violet-50 dark:bg-violet-900/20",
+    color: "#7c3aed",
+    bgColor: "#ede9fe",
     description: "Sepanjang bulan ini",
   },
 ];
 
 export function DashboardStats({ stats }: DashboardStatsProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div 
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gap: "16px",
+      }}
+    >
       {statCards.map((card) => {
         const Icon = card.icon;
         const value = stats[card.key];
         return (
-          <div
-            key={card.key}
-            className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 shadow-sm"
-          >
-            <div className="flex items-center justify-between mb-3">
+          <div key={card.key} className="card" style={{ padding: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
               <div
-                className={`w-10 h-10 rounded-lg ${card.bgColor} flex items-center justify-center`}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "8px",
+                  backgroundColor: card.bgColor,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <Icon size={20} className={card.color} />
+                <Icon size={20} style={{ color: card.color }} />
               </div>
               <span
-                className={`text-2xl font-bold ${card.color}`}
+                style={{
+                  fontSize: "24px",
+                  fontWeight: 700,
+                  color: card.color,
+                }}
               >
                 {value}
               </span>
             </div>
-            <p className="text-sm font-semibold text-[var(--color-text)]">
+            <p style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", margin: "0 0 2px 0" }}>
               {card.label}
             </p>
-            <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+            <p style={{ fontSize: "12px", color: "var(--text-muted)", margin: 0 }}>
               {card.description}
             </p>
           </div>

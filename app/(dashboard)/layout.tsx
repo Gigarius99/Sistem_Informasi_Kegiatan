@@ -15,14 +15,18 @@ export default async function DashboardLayout({
   }
   const userRole = (session.user as { role?: Role }).role ?? "PIMPINAN";
   const userName = session.user.name ?? "Pengguna";
+  
   return (
-    <div className="flex min-h-screen bg-[var(--color-bg)]">
-      <div className="hidden lg:flex flex-shrink-0">
+    <div className="app-layout">
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block">
         <Sidebar userRole={userRole} userName={userName} />
       </div>
-      <div className="flex-1 flex flex-col min-w-0">
+      
+      {/* Main Content Area */}
+      <div className="main-area">
         <Navbar pageTitle="Sistem Informasi Agenda Kegiatan" userRole={userRole} userName={userName} />
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto">
+        <main style={{ padding: "24px", overflowY: "auto", flex: 1 }}>
           {children}
         </main>
       </div>
