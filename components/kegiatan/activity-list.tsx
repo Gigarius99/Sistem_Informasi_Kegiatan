@@ -327,7 +327,7 @@ export function ActivityList({
                     {field.label}
                   </th>
                 ))}
-                {isAdmin && <th style={{ width: "80px", textAlign: "center" }}>Aksi</th>}
+                {isAdmin && !isFullscreen && <th style={{ width: "80px", textAlign: "center" }}>Aksi</th>}
               </tr>
             </thead>
             <tbody>
@@ -338,7 +338,7 @@ export function ActivityList({
                       {renderCellContent(activity, field)}
                     </td>
                   ))}
-                  {isAdmin && (
+                  {isAdmin && !isFullscreen && (
                     <td style={{ textAlign: "center" }}>
                       <div style={{ display: "flex", gap: "8px", justifyContent: "center" }}>
                         <Link
