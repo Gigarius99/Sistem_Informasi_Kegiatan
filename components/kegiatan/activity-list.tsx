@@ -319,7 +319,7 @@ export function ActivityList({
           )}
 
           <div style={{ overflowX: "auto" }}>
-            <table className="data-table" style={isFullscreen ? { minWidth: `${Math.max(1200, fields.length * 300)}px`, tableLayout: "fixed" } : { tableLayout: "fixed" }}>
+            <table className="data-table" style={{ width: "100%", tableLayout: "fixed" }}>
             <thead>
               <tr>
                 {fields.map((field) => (
