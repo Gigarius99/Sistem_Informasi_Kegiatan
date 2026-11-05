@@ -319,7 +319,7 @@ export function ActivityList({
           )}
 
           <div style={{ overflowX: "auto" }}>
-            <table className="data-table" style={isFullscreen ? { minWidth: "1200px", tableLayout: "fixed" } : { tableLayout: "fixed" }}>
+            <table className="data-table" style={isFullscreen ? { minWidth: `${Math.max(1200, fields.length * 260)}px`, tableLayout: "fixed" } : { tableLayout: "fixed" }}>
             <thead>
               <tr>
                 {fields.map((field) => (
@@ -334,7 +334,7 @@ export function ActivityList({
               {filtered.map((activity) => (
                 <tr key={activity.id}>
                   {fields.map((field) => (
-                    <td key={field.id} style={{ wordBreak: "break-word", ...(isFullscreen && { fontSize: "22px", padding: "16px" }) }}>
+                    <td key={field.id} style={{ wordBreak: "break-word", ...(isFullscreen && { fontSize: "22px", padding: "16px", whiteSpace: "normal" }) }}>
                       {renderCellContent(activity, field)}
                     </td>
                   ))}
