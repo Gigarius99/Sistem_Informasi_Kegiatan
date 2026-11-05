@@ -70,11 +70,23 @@ export async function PUT(
 
     const { activityDate, transitLocation, description, customFields, ...rest } = result.data;
 
+    const parsedDate = new Date(activityDate);
+    if (Number.isNaN(parsedDate.getTime())) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Validasi gagal",
+          errors: { activityDate: "Format tanggal tidak valid (contoh: 2026-11-10)" },
+        },
+        { status: 400 }
+      );
+    }
+
     const updated = await prisma.activity.update({
       where: { id },
       data: {
         ...rest,
-        activityDate: new Date(activityDate),
+        activityDate: parsedDate,
         transitLocation: transitLocation || null,
         description: description || null,
         customFields: customFields || null,

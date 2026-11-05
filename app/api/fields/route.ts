@@ -119,16 +119,32 @@ export async function POST(req: Request) {
 
     if (action === "EDIT") {
       const { id, label, inputType } = fieldData;
-      // Gunakan updateMany agar filter userId bisa jalan
+      // Field standard terikat ke kolom DB: tipe input & nama tidak boleh diubah,
+      // hanya label. Kalau diubah (mis. activityDate jadi "time"), simpan kegiatan gagal.
+      const target = await prisma.fieldConfig.findFirst({
+        where: { id, userId: targetUserId },
+        select: { type: true },
+      });
       const updated = await prisma.fieldConfig.updateMany({
         where: { id, userId: targetUserId },
-        data: { label, inputType },
+        data: target?.type === "standard" ? { label } : { label, inputType },
       });
       return NextResponse.json({ success: true });
     }
 
     if (action === "DELETE") {
       const { id } = fieldData;
+      // Field standard tidak boleh dihapus; form jadi kehilangan kolom wajib.
+      const target = await prisma.fieldConfig.findFirst({
+        where: { id, userId: targetUserId },
+        select: { type: true },
+      });
+      if (target?.type === "standard") {
+        return NextResponse.json(
+          { success: false, error: "Field standar tidak bisa dihapus, hanya labelnya yang bisa diubah." },
+          { status: 400 }
+        );
+      }
       await prisma.fieldConfig.deleteMany({
         where: { id, userId: targetUserId },
       });
