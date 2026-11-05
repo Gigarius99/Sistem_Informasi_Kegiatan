@@ -10,7 +10,7 @@ import type { NextRequest } from "next/server";
 const { auth } = NextAuth(authConfig);
 
 // Rute publik (tidak perlu login)
-const PUBLIC_ROUTES = ["/login", "/api/auth"];
+const PUBLIC_ROUTES = ["/login", "/api/auth", "/api/health"];
 
 // Rute khusus Admin
 const ADMIN_ONLY_ROUTES = [

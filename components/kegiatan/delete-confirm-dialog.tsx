@@ -74,14 +74,16 @@ export function DeleteConfirmDialog({
         {/* Actions */}
         <div className="flex gap-3">
           <button
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors flex-1 justify-center"
+            className="btn-outline"
+            style={{ flex: 1, justifyContent: "center" }}
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
           >
             Batal
           </button>
           <button
-            className="btn-danger flex-1 justify-center"
+            className="btn-primary"
+            style={{ flex: 1, justifyContent: "center" }}
             onClick={onConfirm}
             disabled={isLoading}
             id="confirm-delete"

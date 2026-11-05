@@ -299,7 +299,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
               Isi informasi kegiatan. Tarik (drag) icon di sebelah kiri untuk mengubah urutan form.
             </p>
           </div>
-          <button onClick={openAddModal} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors py-2 flex-shrink-0 text-sm">
+          <button onClick={openAddModal} className="btn-outline" style={{ display: 'inline-flex', padding: '8px 16px', gap: '8px' }}>
             <Plus size={18} /> Tambah Variabel
           </button>
         </div>
@@ -388,9 +388,11 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                                   value={formData[field.name] || ""}
                                   onChange={handleChange}
                                   rows={3}
-                                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] resize-none text-[15px] p-3"
+                                  className="input"
                                   style={{
                                     borderColor: errors[field.name] ? "#DC2626" : "var(--color-input-border)",
+                                    resize: "none",
+                                    padding: "12px",
                                   }}
                                   disabled={isSaving}
                                 />
@@ -401,7 +403,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                                   type={field.inputType}
                                   value={formData[field.name] || ""}
                                   onChange={handleChange}
-                                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] text-[15px] py-2.5"
+                                  className="input"
                                   style={{
                                     paddingLeft: field.inputType === "date" || field.inputType === "time" ? "36px" : "12px",
                                     borderColor: errors[field.name] ? "#DC2626" : "var(--color-input-border)",
@@ -427,7 +429,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
           </DragDropContext>
 
           <div className="flex gap-4 mt-8">
-            <button type="submit" className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-1 justify-center py-3.5 text-base" disabled={isSaving}>
+            <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontSize: '16px', padding: '14px' }} disabled={isSaving}>
               {isSaving ? (
                 <>
                   <Loader2 size={20} className="animate-spin" /> Menyimpan...
@@ -464,7 +466,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                   value={customLabel}
                   onChange={(e) => setCustomLabel(e.target.value)}
                   placeholder="Contoh: Susunan Acara, Penanggung Jawab..."
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] py-2 text-sm"
+                  className="input"
                   autoFocus
                 />
               </div>
@@ -475,7 +477,8 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                 <select
                   value={customInputType}
                   onChange={(e) => setCustomInputType(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-lg border bg-[var(--color-input-bg)] text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] text-sm outline-none transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary-light)] py-2 text-sm bg-[var(--color-input-bg)] appearance-none"
+                  className="input"
+                  style={{ backgroundColor: 'var(--color-input-bg)' }}
                 >
                   <option value="text">Teks Singkat (Text)</option>
                   <option value="textarea">Teks Panjang (Keterangan / Paragraf)</option>
@@ -485,10 +488,10 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
               </div>
             </div>
             <div className="flex justify-end gap-3 p-5 border-t border-[var(--color-border)] bg-[var(--color-surface)] rounded-b-2xl">
-              <button onClick={() => setShowModal(false)} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-text)] text-sm font-medium hover:bg-[var(--color-surface-2)] transition-colors py-2 text-sm">
+              <button onClick={() => setShowModal(false)} className="btn-outline">
                 Batal
               </button>
-              <button onClick={handleSaveField} className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-2 text-sm">
+              <button onClick={handleSaveField} className="btn-primary">
                 Simpan Variabel
               </button>
             </div>

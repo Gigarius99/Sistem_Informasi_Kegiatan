@@ -41,15 +41,15 @@ export default function LoginPage() {
         }}
       />
 
-      <div style={{ width: "100%", maxWidth: "400px" }}>
+      <div style={{ width: "100%", maxWidth: "440px" }}>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "32px" }}>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "16px" }}>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "12px" }}>
             <div
               style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "16px",
+                width: "90px",
+                height: "90px",
+                borderRadius: "20px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -61,22 +61,22 @@ export default function LoginPage() {
               <img
                 src="/Seal_of_Wonogiri_Regency.png"
                 alt="Logo Kabupaten Wonogiri"
-                style={{ width: "56px", height: "auto" }}
+                style={{ width: "64px", height: "auto" }}
               />
             </div>
           </div>
           <h1
-            style={{ fontSize: "24px", fontWeight: 800, color: "var(--color-primary)", margin: "0 0 4px 0", lineHeight: 1.2 }}
+            style={{ fontSize: "32px", fontWeight: 800, color: "var(--color-primary)", margin: "0 0 4px 0", lineHeight: 1.2 }}
           >
             Sistem Informasi
           </h1>
           <p
-            style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text)", margin: "0 0 4px 0" }}
+            style={{ fontSize: "24px", fontWeight: 700, color: "var(--color-text)", margin: "0 0 4px 0" }}
           >
             Agenda Kegiatan
           </p>
           <p
-            style={{ fontSize: "14px", color: "var(--color-text-muted)", margin: 0 }}
+            style={{ fontSize: "16px", color: "var(--color-text-muted)", margin: 0 }}
           >
             Kabupaten Wonogiri
           </p>
@@ -86,26 +86,26 @@ export default function LoginPage() {
         <div
           className="card animate-fade-in"
           style={{
-            padding: "32px",
+            padding: "24px",
             boxShadow: "0 8px 32px var(--color-shadow)"
           }}
         >
           {/* Judul dengan aksen */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
-            <div
-              style={{ width: "4px", height: "24px", borderRadius: "4px", backgroundColor: "var(--color-primary)" }}
-            />
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", marginBottom: "24px" }}>
             <h2
-              style={{ fontSize: "18px", fontWeight: 700, color: "var(--color-text)", margin: 0 }}
+              style={{ fontSize: "20px", fontWeight: 700, color: "var(--color-text)", margin: 0, textAlign: "center" }}
             >
               Masuk ke Akun Anda
             </h2>
+            <div
+              style={{ width: "40px", height: "4px", borderRadius: "4px", backgroundColor: "var(--color-primary)" }}
+            />
           </div>
           <LoginForm />
         </div>
 
         <p
-          style={{ textAlign: "center", fontSize: "12px", color: "var(--color-text-muted)", marginTop: "24px" }}
+          style={{ textAlign: "center", fontSize: "12px", color: "var(--color-text-muted)", marginTop: "16px" }}
         >
           © 2025 Pemerintah Kabupaten Wonogiri
         </p>

@@ -135,20 +135,32 @@ export function ActivityList({
   };
 
   const renderCellContent = (activity: any, field: FieldConfig) => {
+    let val;
     if (field.type === "standard") {
-      const val = activity[field.name];
-      if (field.name === "activityDate") return formatDateIndonesia(val);
-      if (field.name === "invitationTime") return formatTime(val);
-      return val || "-";
+      val = activity[field.name];
     } else {
-      if (!activity.customFields) return "-";
-      try {
-        const parsed = JSON.parse(activity.customFields);
-        return parsed[field.name] || "-";
-      } catch {
-        return "-";
+      if (!activity.customFields) {
+        val = "-";
+      } else {
+        try {
+          const parsed = JSON.parse(activity.customFields);
+          val = parsed[field.name] || "-";
+        } catch {
+          val = "-";
+        }
       }
     }
+
+    if (!val || val === "-") return "-";
+
+    if (field.name === "activityDate" || field.inputType === "date") {
+      return formatDateIndonesia(val);
+    }
+    if (field.name === "invitationTime" || field.inputType === "time") {
+      return formatTime(val);
+    }
+    
+    return val;
   };
 
   if (isLoadingFields) {

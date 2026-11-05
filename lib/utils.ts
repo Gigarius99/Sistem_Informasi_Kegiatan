@@ -142,6 +142,10 @@ export const ACTION_LABELS: Record<string, string> = {
 };
 
 export const ROLE_LABELS: Record<string, string> = {
+  ADMIN_APLIKASI: "Admin Aplikasi",
+  ADMIN_KEGIATAN: "Admin Kegiatan",
+  PIMPINAN: "Pimpinan",
+  // label lama (token/seed versi sebelumnya)
   ADMIN: "Administrator",
   ATASAN: "Pimpinan",
 };

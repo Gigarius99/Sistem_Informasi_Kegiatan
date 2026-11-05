@@ -70,7 +70,7 @@ async function getRecentActivities(userRole: string, userId: string, parentId: s
   const now = new Date();
   return prisma.activity.findMany({
     where,
-    orderBy: { createdAt: "desc" },
+    orderBy: { activityDate: "asc" },
     include: {
       creator: { select: { id: true, name: true, username: true } },
     },

@@ -33,6 +33,7 @@ model User {
 
   activities    Activity[]
   activityLogs  ActivityLog[]
+  fieldConfigs  FieldConfig[]
   
   parent        User?    @relation("UserHierarchy", fields: [parentId], references: [id])
   children      User[]   @relation("UserHierarchy")
@@ -80,12 +81,16 @@ model ActivityLog {
 
 model FieldConfig {
   id        String   @id @default(cuid())
-  name      String   @unique
+  name      String
   label     String
   type      String   // "standard" or "custom"
   inputType String   // "text", "date", "time", "textarea" dsb
   order     Int      
   isActive  Boolean  @default(true)
+  userId    String?  @map("user_id")
 
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([name, userId])
   @@map("field_configs")
 }

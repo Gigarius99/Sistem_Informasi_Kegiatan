@@ -31,7 +31,7 @@ export default async function KegiatanPage() {
 
   const activities = await prisma.activity.findMany({
     where,
-    orderBy: { createdAt: "desc" },
+    orderBy: { activityDate: "asc" },
     include: {
       creator: { select: { id: true, name: true, username: true } },
     },

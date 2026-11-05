@@ -40,3 +40,6 @@ next-env.d.ts
 # prisma db
 dev.db
 prisma/dev.db
+
+.vercel
+.env*

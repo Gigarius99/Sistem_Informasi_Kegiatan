@@ -117,7 +117,12 @@ async function main() {
   for (let i = 0; i < standardFields.length; i++) {
     const field = standardFields[i];
     await prisma.fieldConfig.upsert({
-      where: { name: field.name },
+      where: {
+        name_userId: {
+          name: field.name,
+          userId: atasan.id,
+        },
+      },
       update: {
         label: field.label,
         type: field.type,
@@ -130,10 +135,11 @@ async function main() {
         type: field.type,
         inputType: field.inputType,
         order: i + 1,
+        userId: atasan.id,
       },
     });
   }
-  console.log("✅ Seeded default field configs");
+  console.log("✅ Seeded default field configs for Atasan");
 
   console.log("🎉 Database seeding completed!");
 }

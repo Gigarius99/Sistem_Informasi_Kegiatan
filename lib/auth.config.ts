@@ -3,12 +3,11 @@ import type { NextAuthConfig } from "next-auth";
 // Deteksi apakah sedang berjalan di HTTPS (production)
 const isProduction = process.env.NODE_ENV === "production";
 
-// Cookie config cross-domain untuk split deployment (Vercel + Cloudflare)
+// Cookie config — deploy tunggal di Vercel, jadi cukup lax.
+// sameSite "none" hanya perlu kalau frontend dan backend beda domain (split Cloudflare).
 const cookieConfig = isProduction
   ? {
-      // SameSite=None diperlukan agar cookie bisa dibaca dari domain Cloudflare
-      // ketika browser melakukan fetch ke Vercel API dengan credentials:include
-      sameSite: "none" as const,
+      sameSite: "lax" as const,
       secure: true,
       httpOnly: true,
     }
@@ -44,7 +43,7 @@ export const authConfig = {
         ? "__Secure-authjs.callback-url"
         : "authjs.callback-url",
       options: {
-        sameSite: isProduction ? ("none" as const) : ("lax" as const),
+        sameSite: "lax" as const,
         secure: isProduction,
         httpOnly: false, // callbackUrl perlu bisa dibaca JS
       },
@@ -54,7 +53,7 @@ export const authConfig = {
         ? "__Host-authjs.csrf-token"
         : "authjs.csrf-token",
       options: {
-        sameSite: isProduction ? ("none" as const) : ("lax" as const),
+        sameSite: "lax" as const,
         secure: isProduction,
         httpOnly: true,
       },
