@@ -167,8 +167,12 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
     }
   };
 
-  const handleDeleteField = async (id: string, name: string) => {
-    if (!confirm("Hapus variabel ini secara permanen? Data pada kegiatan sebelumnya mungkin akan hilang di tabel.")) return;
+  const handleDeleteField = async (id: string, name: string, type?: string) => {
+    const msg =
+      type === "standard"
+        ? "Sembunyikan field ini dari form? Data lama tetap aman dan field bisa ditampilkan lagi lewat database."
+        : "Hapus variabel ini secara permanen? Data pada kegiatan sebelumnya mungkin akan hilang di tabel.";
+    if (!confirm(msg)) return;
     try {
       const res = await apiFetch("/api/fields", {
         method: "POST",
@@ -176,11 +180,13 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
       });
       const data = await res.json();
       if (data.success) {
-        toast.success("Variabel dihapus");
+        toast.success(data.message || "Variabel dihapus");
         setFields(fields.filter((f) => f.id !== id));
         const newForm = { ...formData };
         delete newForm[name];
         setFormData(newForm);
+      } else {
+        toast.error(data.error || "Gagal menghapus variabel");
       }
     } catch {
       toast.error("Gagal menghapus variabel");
@@ -357,7 +363,7 @@ export function ActivityForm({ mode, initialData }: ActivityFormProps) {
                                 </button>
                                 <button
                                   type="button"
-                                  onClick={() => handleDeleteField(field.id, field.name)}
+                                  onClick={() => handleDeleteField(field.id, field.name, field.type)}
                                   className="p-1.5 text-red-600 hover:bg-red-50 rounded"
                                 >
                                   <Trash2 size={14} />

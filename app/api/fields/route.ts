@@ -46,7 +46,7 @@ export async function GET() {
     }
 
     let fields = await prisma.fieldConfig.findMany({
-      where: { userId: targetUserId },
+      where: { userId: targetUserId, isActive: true },
       orderBy: { order: "asc" },
     });
 
@@ -134,21 +134,32 @@ export async function POST(req: Request) {
 
     if (action === "DELETE") {
       const { id } = fieldData;
-      // Field standard tidak boleh dihapus; form jadi kehilangan kolom wajib.
       const target = await prisma.fieldConfig.findFirst({
         where: { id, userId: targetUserId },
         select: { type: true },
       });
       if (target?.type === "standard") {
-        return NextResponse.json(
-          { success: false, error: "Field standar tidak bisa dihapus, hanya labelnya yang bisa diubah." },
-          { status: 400 }
-        );
+        // Field standar terikat kolom DB: sembunyikan (isActive=false) supaya tidak
+        // merusak form, tapi tetap bisa dikembalikan lewat action RESTORE.
+        await prisma.fieldConfig.updateMany({
+          where: { id, userId: targetUserId },
+          data: { isActive: false },
+        });
+        return NextResponse.json({ success: true, message: "Field standar disembunyikan dari form." });
       }
       await prisma.fieldConfig.deleteMany({
         where: { id, userId: targetUserId },
       });
-      return NextResponse.json({ success: true });
+      return NextResponse.json({ success: true, message: "Variabel dihapus." });
+    }
+
+    if (action === "RESTORE") {
+      const { id } = fieldData;
+      await prisma.fieldConfig.updateMany({
+        where: { id, userId: targetUserId },
+        data: { isActive: true },
+      });
+      return NextResponse.json({ success: true, message: "Field ditampilkan kembali." });
     }
 
     return NextResponse.json({ success: false, error: "Invalid action" }, { status: 400 });
