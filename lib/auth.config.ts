@@ -26,7 +26,10 @@ export const authConfig = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 jam
+    // Sesi panjang: login sekali, logout hanya manual.
+    // 10 tahun + updateAge 24 jam (cookie di-refresh tiap hari saat dipakai).
+    maxAge: 10 * 365 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
   },
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   trustHost: true,
