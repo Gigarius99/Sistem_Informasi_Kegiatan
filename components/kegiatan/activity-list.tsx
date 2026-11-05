@@ -323,7 +323,7 @@ export function ActivityList({
             <thead>
               <tr>
                 {fields.map((field) => (
-                  <th key={field.id} style={{ paddingRight: "16px" }}>
+                  <th key={field.id} style={{ paddingRight: "16px", ...(isFullscreen && { fontSize: "24px", padding: "16px" }) }}>
                     {field.label}
                   </th>
                 ))}
@@ -334,7 +334,7 @@ export function ActivityList({
               {filtered.map((activity) => (
                 <tr key={activity.id}>
                   {fields.map((field) => (
-                    <td key={field.id} style={{ wordBreak: "break-word" }}>
+                    <td key={field.id} style={{ wordBreak: "break-word", ...(isFullscreen && { fontSize: "22px", padding: "16px" }) }}>
                       {renderCellContent(activity, field)}
                     </td>
                   ))}
